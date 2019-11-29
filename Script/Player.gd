@@ -1,27 +1,37 @@
-extends KinematicBody2D
+extends "res://Script/BaseKine.gd"
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# using global singleton btn
+#var btn = load("res://Script/btn.gd").new()
 
-# Called when the node enters the scene tree for the first time.
+var NodeSprite
+
+var vel = Vector2.ZERO
+var spd = 60
+
+var flr = Vector2(0, -1)
+
 func _ready():
-	pass # Replace with function body.
+	NodeSprite = get_node("Sprite")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if btnp("ui_cancel"):
+	if btn.p("ui_cancel"):
 		get_tree().quit()
+	
+	var btnx = btn.d("right") - btn.d("left")
+	vel.x = btnx * spd
+	
+	var btny = btn.d("down") - btn.d("up")
+	vel.y = btny * spd
+	
+	move_and_slide(vel, flr)
+	
+	wrap()
+	
+	# animation
+	if btnx == 0:
+		NodeSprite.TryLoop("Idle")
+	else:
+		NodeSprite.flip_h = btn.d("left")
+		NodeSprite.TryLoop("Run")
 
 
-func NumBool(arg : bool):
-	return 1 if arg else 0
-
-func btn(arg : String):
-	return NumBool(Input.is_action_pressed(arg))
-
-func btnp(arg : String):
-	return NumBool(Input.is_action_just_pressed(arg))
-
-func btnr(arg : String):
-	return NumBool(Input.is_action_just_released(arg))

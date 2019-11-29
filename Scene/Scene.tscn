@@ -1,11 +1,112 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://Script/Player.gd" type="Script" id=1]
-[ext_resource path="res://Image/Player.png" type="Texture" id=2]
-[ext_resource path="res://Script/SpriteScript.gd" type="Script" id=3]
-[ext_resource path="res://Image/Goober.png" type="Texture" id=4]
-[ext_resource path="res://Image/Explosion.png" type="Texture" id=5]
-[ext_resource path="res://Image/Candy.png" type="Texture" id=6]
+[ext_resource path="res://Image/Tilemap.png" type="Texture" id=1]
+[ext_resource path="res://Script/Player.gd" type="Script" id=2]
+[ext_resource path="res://Image/Player.png" type="Texture" id=3]
+[ext_resource path="res://Script/SpriteScript.gd" type="Script" id=4]
+[ext_resource path="res://Script/Goober.gd" type="Script" id=5]
+[ext_resource path="res://Image/Goober.png" type="Texture" id=6]
+[ext_resource path="res://Scene/Explosion.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Image/Candy.png" type="Texture" id=8]
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="TileSet" id=12]
+0/name = "Tilemap.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 24, 24 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 8, 8 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [ {
+"autotile_coord": Vector2( 2, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 3 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 4 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 5 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 7 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 8 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 9 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 10 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 11 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 3 )
@@ -15,18 +116,27 @@ extents = Vector2( 3, 3 )
 
 [node name="Scene" type="Node2D"]
 
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 12 )
+cell_size = Vector2( 8, 8 )
+format = 1
+tile_data = PoolIntArray( 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 720902, 0, 0, 720903, 0, 0, 720904, 0, 0, 720905, 0, 0, 720906, 0, 0, 720907, 0, 0, 720908, 0, 0, 786438, 0, 0, 786439, 0, 0, 786440, 0, 0, 786441, 0, 0, 786442, 0, 0, 786443, 0, 0, 786444, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851980, 0, 0 )
+
 [node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 72, 72 )
+current = true
 
 [node name="Player" type="KinematicBody2D" parent="."]
+editor/display_folded = true
 position = Vector2( 16, 16 )
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="Player"]
 position = Vector2( 0, -1 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 hframes = 6
 region_rect = Rect2( 0, 0, 8, 8 )
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 file_name = "Player"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -35,29 +145,23 @@ shape = SubResource( 1 )
 [node name="Goober" type="KinematicBody2D" parent="."]
 editor/display_folded = true
 position = Vector2( 42.4212, 24.5195 )
+script = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="Goober"]
 position = Vector2( 0, -1 )
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 hframes = 3
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 file_name = "Goober"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Goober"]
 shape = SubResource( 2 )
 
-[node name="Explosion" type="Node2D" parent="."]
-editor/display_folded = true
-position = Vector2( 25.9618, 32.7492 )
-
-[node name="Sprite" type="Sprite" parent="Explosion"]
-texture = ExtResource( 5 )
-hframes = 4
-script = ExtResource( 3 )
-file_name = "Explosion"
+[node name="Explosion" parent="." instance=ExtResource( 7 )]
 
 [node name="Candy" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 50.6509, 43.4393 )
 
 [node name="Sprite" type="Sprite" parent="Candy"]
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )

@@ -14,7 +14,7 @@ var timer = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("\n---Begin SpriteScript---")
+	print("\n--- Start SpriteScript: ", file_name, " ---")
 	print("Importing data from ", file_name, ".", file_ext)
 	var json = ParseJson()
 	if !json.has("meta") || !json.meta.has("version"):
@@ -29,7 +29,7 @@ func _ready():
 		key_name = file_name + " " + String(num) + ".aseprite"
 	print(file_name + ".aseprite contains: " + String(num - 1) + " frames")
 	hframes = DURATION.size()
-	print("Durations: ", DURATION, "\n")
+	print("Durations: ", DURATION)
 
 	print("Size of frameTags: " + String(json.meta.frameTags.size()))
 	for i in json.meta.frameTags.size():
@@ -42,7 +42,7 @@ func _ready():
 	
 	for i in range(NAME.size()):
 		print("Name: ", NAME[i], ",\t First: ", FIRST[i], ",\t Last: ", LAST[i])
-	print("---End of SpriteScript---")
+	print("--- End SpriteScript: ", file_name, " ---")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
