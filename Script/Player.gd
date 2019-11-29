@@ -1,8 +1,5 @@
 extends "res://Script/BaseKine.gd"
 
-# using global singleton btn
-#var btn = load("res://Script/btn.gd").new()
-
 var NodeScene
 var NodeSprite
 var NodeArea2D
@@ -14,22 +11,25 @@ var read = []
 
 var vel = Vector2.ZERO
 var spd = 60
-var grv = 222
-var jumpSpd = 111
-var onFloor = false
-
+var grv = 255
+var jumpSpd = 133
 var termVel = 400
+
+var onFloor = false
+var jump = false
+
+
 
 
 func _ready():
 	DOHUD(5)
-	NodeScene = get_node("/root/Scene/")
+	NodeScene = get_node("/root/GameScene/")
 	NodeSprite = get_node("Sprite")
 	NodeArea2D = get_node("Area2D")
 
 func DOHUD(arg : int):
 	var fnt = load("res://Font/m3x6.tres")
-	HUD = get_node("/root/Scene/HUD")
+	HUD = get_node("/root/GameScene/HUD")
 	for i in range(arg):
 		var nNode = Label.new()
 		nNode.name = "Label" + String(i)
@@ -43,9 +43,6 @@ func DOHUD(arg : int):
 		read.append(HUD.get_node(nNode.name))
 
 func _physics_process(delta):
-	if btn.p("ui_cancel"):
-		get_tree().quit()
-	
 	# gravity
 	vel.y += grv * delta
 	vel.y = clamp(vel.y, -termVel, termVel)
@@ -55,8 +52,15 @@ func _physics_process(delta):
 	vel.x = btnx * spd
 	
 	# jump
-	if onFloor and btn.d("jump"):
-		vel.y = -jumpSpd
+	if onFloor:
+		if btn.p("jump"):
+			jump = true
+			vel.y = -jumpSpd
+	elif jump:
+		if !btn.d("jump") and vel.y < jumpSpd / -3:
+			jump = false
+			vel.y = jumpSpd / -3
+	
 	
 	# apply movement
 	move_and_slide(vel, flr)
@@ -95,9 +99,15 @@ func _physics_process(delta):
 			if onFloor:
 				Die()
 			else:
-				vel.y = -jumpSpd
+				if btn.d("jump"):
+					jump = true
+					vel.y = -jumpSpd
+				else:
+					jump = false
+					vel.y = -jumpSpd * 0.6
 				par.queue_free()
 				Explode(par.position)
+				NodeScene.check = true
 				print("Goober destroyed")
 	
 

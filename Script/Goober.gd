@@ -22,4 +22,8 @@ func _physics_process(delta):
 		NodeSprite.flip_h = !NodeSprite.flip_h
 	
 	move_and_slide(vel)
-	
+
+
+
+
+
