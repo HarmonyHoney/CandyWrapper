@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Script/Player.gd" type="Script" id=1]
+[ext_resource path="res://Image/Player.png" type="Texture" id=2]
+[ext_resource path="res://Script/SpriteScript.gd" type="Script" id=3]
+[ext_resource path="res://Image/Goober.png" type="Texture" id=4]
+[ext_resource path="res://Image/Explosion.png" type="Texture" id=5]
+[ext_resource path="res://Image/Candy.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 2, 3 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 3, 3 )
+
+[node name="Scene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 16, 16 )
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Player"]
+position = Vector2( 0, -1 )
+texture = ExtResource( 2 )
+hframes = 6
+region_rect = Rect2( 0, 0, 8, 8 )
+script = ExtResource( 3 )
+file_name = "Player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource( 1 )
+
+[node name="Goober" type="KinematicBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 42.4212, 24.5195 )
+
+[node name="Sprite" type="Sprite" parent="Goober"]
+position = Vector2( 0, -1 )
+texture = ExtResource( 4 )
+hframes = 3
+script = ExtResource( 3 )
+file_name = "Goober"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goober"]
+shape = SubResource( 2 )
+
+[node name="Explosion" type="Node2D" parent="."]
+editor/display_folded = true
+position = Vector2( 25.9618, 32.7492 )
+
+[node name="Sprite" type="Sprite" parent="Explosion"]
+texture = ExtResource( 5 )
+hframes = 4
+script = ExtResource( 3 )
+file_name = "Explosion"
+
+[node name="Candy" type="Node2D" parent="."]
+position = Vector2( 50.6509, 43.4393 )
+
+[node name="Sprite" type="Sprite" parent="Candy"]
+texture = ExtResource( 6 )
