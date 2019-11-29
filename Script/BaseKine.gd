@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const flr = Vector2(0, -1)
+
 func wrap():
 	if position.x < 0:
 		position.x += 144
