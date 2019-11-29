@@ -3,7 +3,11 @@ extends "res://Script/BaseKine.gd"
 # using global singleton btn
 #var btn = load("res://Script/btn.gd").new()
 
+var NodeScene
 var NodeSprite
+var NodeArea2D
+
+var SceneExplo = load("res://Scene/Explosion.tscn")
 
 var HUD
 var read = []
@@ -18,8 +22,10 @@ var termVel = 400
 
 
 func _ready():
+	DOHUD(5)
+	NodeScene = get_node("/root/Scene/")
 	NodeSprite = get_node("Sprite")
-	DOHUD(3)
+	NodeArea2D = get_node("Area2D")
 
 func DOHUD(arg : int):
 	var fnt = load("res://Font/m3x6.tres")
@@ -29,6 +35,8 @@ func DOHUD(arg : int):
 		nNode.name = "Label" + String(i)
 		nNode.text = nNode.name
 		nNode.margin_top = (i * 7) - 4
+		nNode.margin_left = 1
+		nNode.uppercase = true
 		nNode.add_color_override("font_color", Color.black)
 		nNode.add_font_override("font", fnt)
 		HUD.add_child(nNode, true)
@@ -73,8 +81,35 @@ func _physics_process(delta):
 	
 	# HUD
 	read[0].text = "onFloor: " + String(onFloor)
-	read[1].text = "vel.x: " + String(vel.x)
-	read[2].text = "vel.y: " + String(vel.y)
+	read[1].text = "pos.x: " + String(position.x)
+	read[2].text = "pos.y: " + String(position.y)
+	read[3].text = "vel.x: " + String(vel.x)
+	read[4].text = "vel.y: " + String(vel.y)
 	
+	var overlap = NodeArea2D.get_overlapping_areas()
 	
+	for o in overlap:
+		print ("Overlapping: ", o.get_parent().name)
+		var par = o.get_parent()
+		if par.name == "Goober":
+			if onFloor:
+				Die()
+			else:
+				vel.y = -jumpSpd
+				par.queue_free()
+				Explode(par.position)
+				print("Goober destroyed")
+	
+
+
+func Explode(arg : Vector2):
+	var xpl = SceneExplo.instance()
+	xpl.position = arg
+	NodeScene.add_child(xpl)
+
+func Die():
+	#queue_free()
+	Explode(position)
+	position = Vector2(30, 30)
+
 
