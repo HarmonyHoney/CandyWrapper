@@ -17,19 +17,20 @@ var onFloor = false
 var termVel = 400
 
 
-
 func _ready():
 	NodeSprite = get_node("Sprite")
 	DOHUD(3)
 
 func DOHUD(arg : int):
+	var fnt = load("res://Font/m3x6.tres")
 	HUD = get_node("/root/Scene/HUD")
 	for i in range(arg):
 		var nNode = Label.new()
 		nNode.name = "Label" + String(i)
 		nNode.text = nNode.name
-		nNode.margin_top = i * 16
+		nNode.margin_top = (i * 7) - 4
 		nNode.add_color_override("font_color", Color.black)
+		nNode.add_font_override("font", fnt)
 		HUD.add_child(nNode, true)
 		read.append(HUD.get_node(nNode.name))
 
