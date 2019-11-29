@@ -46,6 +46,14 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 8 },
     "sourceSize": { "w": 8, "h": 8 },
     "duration": 200
+   },
+   "Player 6.aseprite": {
+    "frame": { "x": 48, "y": 0, "w": 8, "h": 8 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 8 },
+    "sourceSize": { "w": 8, "h": 8 },
+    "duration": 200
    }
  },
  "meta": {
@@ -53,11 +61,12 @@
   "version": "1.2.16.2-x64",
   "image": "Player.png",
   "format": "RGBA8888",
-  "size": { "w": 48, "h": 8 },
+  "size": { "w": 56, "h": 8 },
   "scale": "1",
   "frameTags": [
    { "name": "Idle", "from": 0, "to": 1, "direction": "forward" },
-   { "name": "Run", "from": 2, "to": 5, "direction": "forward" }
+   { "name": "Run", "from": 2, "to": 5, "direction": "forward" },
+   { "name": "Jump", "from": 6, "to": 6, "direction": "forward" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }

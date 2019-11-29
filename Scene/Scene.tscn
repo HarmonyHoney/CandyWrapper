@@ -139,7 +139,7 @@ script = ExtResource( 3 )
 [node name="Sprite" type="Sprite" parent="Player"]
 position = Vector2( 0, -1 )
 texture = ExtResource( 4 )
-hframes = 6
+hframes = 7
 region_rect = Rect2( 0, 0, 8, 8 )
 script = ExtResource( 5 )
 file_name = "Player"

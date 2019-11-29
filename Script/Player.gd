@@ -57,12 +57,18 @@ func _physics_process(delta):
 	if onFloor:
 		vel.y = 0
 	
-	# animation
-	if btnx == 0:
-		NodeSprite.TryLoop("Idle")
-	else:
+	# sprite flip
+	if btnx !=0:
 		NodeSprite.flip_h = btn.d("left")
-		NodeSprite.TryLoop("Run")
+	
+	# animation
+	if onFloor:
+		if btnx == 0:
+			NodeSprite.TryLoop("Idle")
+		else:
+			NodeSprite.TryLoop("Run")
+	else:
+		NodeSprite.TryLoop("Jump")
 	
 	
 	# HUD
