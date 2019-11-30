@@ -14,11 +14,13 @@ var change = false
 
 enum {TILE_WALL = 0, TILE_PLAYER = 1, TILE_GOOBER = 2}
 
+var tmpath = "res://TileMap/TileMap"
+
 func _ready():
-	NodeTileMap = get_node("TileMap")
 	NodeGoobers = get_node("Goobers")
-	
+	MapLoad()
 	MapStart()
+	
 
 func _process(delta):
 	# quit the game
@@ -26,7 +28,15 @@ func _process(delta):
 		get_tree().quit()
 	
 	MapChange(delta)
+
+func MapLoad():
+	var nxtlvl = min(global.level, global.lastLevel)
+	var tm = load(tmpath + String(nxtlvl) + ".tscn").instance()
+	tm.name = "TileMap"
+	add_child(tm)
+	NodeTileMap = get_node("TileMap")
 	
+
 
 func MapStart():
 	print("--- MapStart: Begin ---")
@@ -45,6 +55,7 @@ func MapStart():
 				var plr = ScenePlayer.instance()
 				plr.position = NodeTileMap.map_to_world(pos)
 				plr.position.x += 4
+				plr.name = "Player"
 				add_child(plr)
 				# remove tile from map
 				NodeTileMap.set_cellv(pos, -1)
@@ -53,7 +64,7 @@ func MapStart():
 				var gbr = SceneGoober.instance()
 				gbr.position = NodeTileMap.map_to_world(pos)
 				gbr.position.x += 4
-				add_child(gbr)
+				NodeGoobers.add_child(gbr)
 				# remove tile from map
 				NodeTileMap.set_cellv(pos, -1)
 	print("--- MapStart: End ---")
@@ -63,7 +74,7 @@ func MapChange(delta):
 	if change:
 		delay -= delta
 		if delay < 0:
-			get_tree().reload_current_scene()
+			DoChange()
 		return # skip the rest if change == true
 	
 	# should i check?
@@ -72,6 +83,14 @@ func MapChange(delta):
 	# start check
 	check = false
 	count = NodeGoobers.get_child_count()
-	print("ListGoober: ", count)
+	print("Goobers: ", count)
 	if count == 0:
 		change = true
+
+func DoChange():
+	change = false
+	global.level += 1
+	print("global.level: ", global.level)
+	get_tree().reload_current_scene()
+	#MapLoad()
+	#MapStart()

@@ -18,11 +18,18 @@ var termVel = 400
 var onFloor = false
 var jump = false
 
-
-
+var startPos
 
 func _ready():
+	# snap down 8 pixels, if floor is present
+	var vecdn = Vector2(0, 8)
+	if test_move(transform, vecdn):
+		move_and_collide(vecdn)
+	startPos = position
+	# create hud labels
 	DOHUD(5)
+	
+	# reference nodes
 	NodeScene = get_node("/root/GameScene/")
 	NodeSprite = get_node("Sprite")
 	NodeArea2D = get_node("Area2D")
@@ -61,13 +68,16 @@ func _physics_process(delta):
 			jump = false
 			vel.y = jumpSpd / -3
 	
-	
 	# apply movement
-	move_and_slide(vel, flr)
+	var mov = move_and_slide(vel, flr)
 	wrap()
-	onFloor = is_on_floor()
-	if onFloor:
-		vel.y = 0
+	# check for Goobers
+	var hit = Overlap()
+	if !hit:
+		if mov.y == 0:
+			vel.y = 0
+		# check for floor 0.1 pixel down
+		onFloor = test_move(transform, Vector2(0, 0.1))
 	
 	# sprite flip
 	if btnx !=0:
@@ -90,12 +100,27 @@ func _physics_process(delta):
 	read[3].text = "vel.x: " + String(vel.x)
 	read[4].text = "vel.y: " + String(vel.y)
 	
+
+
+
+func Explode(arg : Vector2):
+	var xpl = SceneExplo.instance()
+	xpl.position = arg
+	NodeScene.add_child(xpl)
+
+func Die():
+	#queue_free()
+	Explode(position)
+	position = startPos
+
+func Overlap():
+	var hit = false
 	var overlap = NodeArea2D.get_overlapping_areas()
-	
 	for o in overlap:
 		print ("Overlapping: ", o.get_parent().name)
 		var par = o.get_parent()
-		if par.name == "Goober":
+		#print()
+		if par is global.Goober:
 			if onFloor:
 				Die()
 			else:
@@ -109,17 +134,6 @@ func _physics_process(delta):
 				Explode(par.position)
 				NodeScene.check = true
 				print("Goober destroyed")
-	
-
-
-func Explode(arg : Vector2):
-	var xpl = SceneExplo.instance()
-	xpl.position = arg
-	NodeScene.add_child(xpl)
-
-func Die():
-	#queue_free()
-	Explode(position)
-	position = Vector2(30, 30)
-
+				hit = true
+	return hit
 
