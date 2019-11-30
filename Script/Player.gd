@@ -3,6 +3,7 @@ extends "res://Script/BaseKine.gd"
 var NodeScene
 var NodeSprite
 var NodeArea2D
+var NodeAudio
 
 var SceneExplo = load("res://Scene/Explosion.tscn")
 
@@ -34,6 +35,7 @@ func _ready():
 	# reference nodes
 	NodeSprite = get_node("Sprite")
 	NodeArea2D = get_node("Area2D")
+	NodeAudio = get_node("Audio")
 
 func DOHUD(arg : int):
 	var fnt = load("res://Font/m3x6.tres")
@@ -64,6 +66,7 @@ func _physics_process(delta):
 		if btn.p("jump"):
 			jump = true
 			vel.y = -jumpSpd
+			NodeAudio.play()
 	elif jump:
 		if !btn.d("jump") and vel.y < jumpSpd / -3:
 			jump = false
@@ -109,9 +112,9 @@ func Explode(arg : Vector2):
 	NodeScene.add_child(xpl)
 
 func Die():
-	#queue_free()
+	queue_free()
 	Explode(position)
-	position = startPos
+	global.Game.Lose()
 
 func Overlap():
 	var hit = false

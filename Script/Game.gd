@@ -5,6 +5,8 @@ var SceneGoober = load("res://Scene/Goober.tscn")
 
 var NodeTileMap
 var NodeGoobers
+var NodeAudioWin
+var NodeAudioLose
 
 var check = false
 var count = 0
@@ -19,6 +21,8 @@ var tmpath = "res://TileMap/TileMap"
 func _ready():
 	global.Game = self
 	NodeGoobers = get_node("Goobers")
+	NodeAudioWin = get_node("AudioWin")
+	NodeAudioLose = get_node("AudioLose")
 	MapLoad()
 	MapStart()
 	
@@ -86,11 +90,20 @@ func MapChange(delta):
 	count = NodeGoobers.get_child_count()
 	print("Goobers: ", count)
 	if count == 0:
-		change = true
+		Win()
+
+func Lose():
+	change = true
+	NodeAudioLose.play()
+	global.level = max(1, global.level - 1)
+
+func Win():
+	change = true
+	NodeAudioWin.play()
+	global.level = min(global.lastLevel, global.level + 1)
 
 func DoChange():
 	change = false
-	global.level += 1
 	print("global.level: ", global.level)
 	#global.Main.Reboot()
 	get_tree().reload_current_scene()

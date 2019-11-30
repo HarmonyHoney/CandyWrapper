@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Script/Player.gd" type="Script" id=1]
 [ext_resource path="res://Image/Player.png" type="Texture" id=2]
 [ext_resource path="res://Script/SpriteScript.gd" type="Script" id=3]
+[ext_resource path="res://Audio/Jump.ogg" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1.5, 3 )
@@ -31,3 +32,6 @@ collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
