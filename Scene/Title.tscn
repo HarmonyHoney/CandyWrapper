@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Image/Title.png" type="Texture" id=1]
+[ext_resource path="res://Image/Player.png" type="Texture" id=2]
+[ext_resource path="res://Script/SpriteScript.gd" type="Script" id=3]
+
+[node name="Title" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+hframes = 4
+
+[node name="PlayerSprite" type="Sprite" parent="."]
+position = Vector2( 68, 80 )
+texture = ExtResource( 2 )
+centered = false
+hframes = 7
+script = ExtResource( 3 )
+file_name = "Player"

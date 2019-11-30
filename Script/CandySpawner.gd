@@ -10,7 +10,9 @@ func _ready():
 	SceneCandy = load("res://Scene/Candy.tscn")
 	rand.randomize()
 	#delay = (global.lastLevel / global.level)
-	delay = lerp(3, 0.6, global.level / global.lastLevel)
+	delay = lerp(3, 0.333, global.level / global.lastLevel)
+	if global.level == 21:
+		delay = 0.15
 	
 
 func _process(delta):

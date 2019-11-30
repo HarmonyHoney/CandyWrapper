@@ -2,6 +2,8 @@ extends Node2D
 
 var ScenePlayer = load("res://Scene/Player.tscn")
 var SceneGoober = load("res://Scene/Goober.tscn")
+var SceneTitle = load("res://Scene/Title.tscn")
+var SceneFinish = load("res://Scene/Finish.tscn")
 
 var NodeTileMap
 var NodeGoobers
@@ -23,6 +25,13 @@ func _ready():
 	NodeGoobers = get_node("Goobers")
 	NodeAudioWin = get_node("AudioWin")
 	NodeAudioLose = get_node("AudioLose")
+	
+	if global.level == 0:
+		add_child(SceneTitle.instance())
+	elif global.level == 21:
+		add_child(SceneFinish.instance())
+	
+	
 	MapLoad()
 	MapStart()
 	
@@ -31,6 +40,15 @@ func _process(delta):
 	# quit the game
 	if btn.p("ui_cancel"):
 		get_tree().quit()
+	
+	if global.level == 0:
+		if btn.p("ui_select"):
+			global.level += 1
+			DoChange()
+	if global.level == 21:
+		if btn.p("ui_select"):
+			global.level = 1
+			DoChange()
 	
 	MapChange(delta)
 
