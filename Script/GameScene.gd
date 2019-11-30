@@ -17,6 +17,7 @@ enum {TILE_WALL = 0, TILE_PLAYER = 1, TILE_GOOBER = 2}
 var tmpath = "res://TileMap/TileMap"
 
 func _ready():
+	global.NodeScene = self
 	NodeGoobers = get_node("Goobers")
 	MapLoad()
 	MapStart()

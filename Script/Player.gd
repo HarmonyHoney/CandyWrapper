@@ -21,22 +21,23 @@ var jump = false
 var startPos
 
 func _ready():
+	NodeScene = global.NodeScene
+	
 	# snap down 8 pixels, if floor is present
 	var vecdn = Vector2(0, 8)
 	if test_move(transform, vecdn):
 		move_and_collide(vecdn)
 	startPos = position
 	# create hud labels
-	DOHUD(5)
+	#DOHUD(5)
 	
 	# reference nodes
-	NodeScene = get_node("/root/GameScene/")
 	NodeSprite = get_node("Sprite")
 	NodeArea2D = get_node("Area2D")
 
 func DOHUD(arg : int):
 	var fnt = load("res://Font/m3x6.tres")
-	HUD = get_node("/root/GameScene/HUD")
+	HUD = NodeScene.get_node("HUD")
 	for i in range(arg):
 		var nNode = Label.new()
 		nNode.name = "Label" + String(i)
@@ -94,12 +95,11 @@ func _physics_process(delta):
 	
 	
 	# HUD
-	read[0].text = "onFloor: " + String(onFloor)
-	read[1].text = "pos.x: " + String(position.x)
-	read[2].text = "pos.y: " + String(position.y)
-	read[3].text = "vel.x: " + String(vel.x)
-	read[4].text = "vel.y: " + String(vel.y)
-	
+	#read[0].text = "onFloor: " + String(onFloor)
+	#read[1].text = "pos.x: " + String(position.x)
+	#read[2].text = "pos.y: " + String(position.y)
+	#read[3].text = "vel.x: " + String(vel.x)
+	#read[4].text = "vel.y: " + String(vel.y)
 
 
 
