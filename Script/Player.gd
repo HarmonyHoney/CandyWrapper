@@ -21,7 +21,7 @@ var jump = false
 var startPos
 
 func _ready():
-	NodeScene = global.NodeScene
+	NodeScene = global.Game
 	
 	# snap down 8 pixels, if floor is present
 	var vecdn = Vector2(0, 8)

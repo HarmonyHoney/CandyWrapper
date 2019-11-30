@@ -21,13 +21,14 @@ _global_script_class_icons={
 [application]
 
 config/name="Candy"
-run/main_scene="res://Scene/MainScene.tscn"
+run/main_scene="res://Scene/Game.tscn"
 config/icon="res://Image/Candy.png"
 
 [autoload]
 
 btn="*res://Script/btn.gd"
 global="*res://Script/Global.gd"
+Audio="*res://Script/Audio.gd"
 
 [display]
 

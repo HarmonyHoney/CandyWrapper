@@ -17,7 +17,7 @@ enum {TILE_WALL = 0, TILE_PLAYER = 1, TILE_GOOBER = 2}
 var tmpath = "res://TileMap/TileMap"
 
 func _ready():
-	global.NodeScene = self
+	global.Game = self
 	NodeGoobers = get_node("Goobers")
 	MapLoad()
 	MapStart()
@@ -92,6 +92,5 @@ func DoChange():
 	change = false
 	global.level += 1
 	print("global.level: ", global.level)
+	#global.Main.Reboot()
 	get_tree().reload_current_scene()
-	#MapLoad()
-	#MapStart()
