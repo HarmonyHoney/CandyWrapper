@@ -4,6 +4,7 @@ var NodeScene
 var NodeSprite
 var NodeArea2D
 var NodeAudio
+var NodeAnim
 
 var SceneExplo = load("res://Scene/Explosion.tscn")
 
@@ -36,6 +37,7 @@ func _ready():
 	NodeSprite = get_node("Sprite")
 	NodeArea2D = get_node("Area2D")
 	NodeAudio = get_node("Audio")
+	NodeAnim = get_node("AnimationPlayer")
 
 func DOHUD(arg : int):
 	var fnt = load("res://Font/m3x6.tres")
@@ -90,11 +92,11 @@ func _physics_process(delta):
 	# animation
 	if onFloor:
 		if btnx == 0:
-			NodeSprite.TryLoop("Idle")
+			TryLoop("Idle")
 		else:
-			NodeSprite.TryLoop("Run")
+			TryLoop("Run")
 	else:
-		NodeSprite.TryLoop("Jump")
+		TryLoop("Jump")
 	
 	
 	# HUD
@@ -140,3 +142,9 @@ func Overlap():
 				hit = true
 	return hit
 
+func TryLoop(arg : String):
+	if arg == NodeAnim.current_animation:
+		return false
+	else:
+		NodeAnim.play(arg)
+		return true

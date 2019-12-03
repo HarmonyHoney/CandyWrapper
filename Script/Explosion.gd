@@ -6,7 +6,5 @@ var NodeSprite
 func _ready():
 	NodeSprite = get_node("Sprite")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if NodeSprite.frame == 3:
-		queue_free()
+func End():
+	queue_free()

@@ -63,6 +63,7 @@ func MapLoad():
 
 func MapStart():
 	print("--- MapStart: Begin ---")
+	print("global.level: ", global.level)
 	for pos in NodeTileMap.get_used_cells():
 		match NodeTileMap.get_cellv(pos):
 			TILE_WALL:
@@ -119,9 +120,8 @@ func Win():
 	change = true
 	NodeAudioWin.play()
 	global.level = min(global.lastLevel, global.level + 1)
+	print("Level Complete!, change to level: ", global.level)
 
 func DoChange():
 	change = false
-	print("global.level: ", global.level)
-	#global.Main.Reboot()
 	get_tree().reload_current_scene()
