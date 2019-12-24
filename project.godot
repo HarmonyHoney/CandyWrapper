@@ -22,7 +22,7 @@ _global_script_class_icons={
 
 config/name="Candy Wrapper: Godot Edition"
 run/main_scene="res://Scene/Game.tscn"
-config/icon="res://Image/Candy.png"
+config/icon="res://Image/picon.png"
 
 [autoload]
 
