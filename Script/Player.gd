@@ -128,7 +128,7 @@ func Overlap():
 		print ("Overlapping: ", o.get_parent().name)
 		var par = o.get_parent()
 		#print()
-		if par is global.Goober:
+		if par is Goober:
 			if onFloor:
 				Die()
 			else:
