@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Image/Title.png" type="Texture" id=1]
+[ext_resource path="res://Image/Title.png" type="Texture2D" id=1]
 [ext_resource path="res://Scene/TitlePlayerSprite.tscn" type="PackedScene" id=2]
 
 [node name="Finish" type="Node2D"]
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource( 1 )
 centered = false
 hframes = 4

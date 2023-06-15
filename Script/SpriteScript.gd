@@ -1,7 +1,7 @@
-extends Sprite
+extends Sprite2D
 
-export var file_dir 	= "res://Image/"
-export var file_name 	= "frog"
+@export var file_dir 	= "res://Image/"
+@export var file_name 	= "frog"
 var file_ext = "json"
 
 var LOOP = 0
@@ -72,7 +72,9 @@ func ParseJson():
 	var data_text = data_file.get_as_text()
 	data_file.close()
 	
-	var data_parse = JSON.parse(data_text)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(data_text)
+	var data_parse = test_json_conv.get_data()
 	if data_parse.error != OK:
 		print("Error parsing" + file_path)
 		return

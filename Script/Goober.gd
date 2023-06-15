@@ -1,4 +1,4 @@
-extends "res://Script/BaseKine.gd"
+extends BaseKine
 class_name Goober
 
 var NodeCast
@@ -9,7 +9,7 @@ var vel = Vector2.ZERO
 
 
 func _ready():
-	NodeSprite = get_node("Sprite")
+	NodeSprite = get_node("Sprite2D")
 	NodeCast = get_node("RayCast2D")
 	move_and_collide(Vector2(0, 16)) # move down 8 pixels to floor
 	vel = Vector2(spd, 0)
@@ -26,11 +26,13 @@ func _physics_process(delta):
 		vel.x = -vel.x
 		NodeSprite.flip_h = !NodeSprite.flip_h
 	
-	var mov = move_and_slide(vel)
+	set_velocity(vel)
+	move_and_slide()
+	var mov = velocity
 	if mov.x == 0:
 		vel.x = -vel.x
 		NodeSprite.flip_h = !NodeSprite.flip_h
-	wrap()
+	wrapp()
 
 
 

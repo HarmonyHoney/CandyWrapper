@@ -1,8 +1,9 @@
-extends KinematicBody2D
+extends CharacterBody2D
+class_name BaseKine
 
 const flr = Vector2(0, -1)
 
-func wrap():
+func wrapp():
 	if position.x < 0:
 		position.x += 144
 	elif position.x > 144:

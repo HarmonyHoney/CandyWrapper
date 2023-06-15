@@ -20,7 +20,7 @@ func _process(delta):
 	
 	if timer < 0:
 		timer = delay
-		var cnd = SceneCandy.instance()
+		var cnd = SceneCandy.instantiate()
 		cnd.position.y = -16
 		cnd.position.x = rand.randi_range(0, 144)
 		add_child(cnd)

@@ -1,0 +1,5 @@
+res://default_env.tres
+res://Scene/Game.tscn
+res://Script/BaseKine.gd
+res://Script/Player.gd
+res://Script/Goober.gd

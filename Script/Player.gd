@@ -1,4 +1,4 @@
-extends "res://Script/BaseKine.gd"
+extends BaseKine
 
 var NodeScene
 var NodeSprite
@@ -34,7 +34,7 @@ func _ready():
 	#DOHUD(5)
 	
 	# reference nodes
-	NodeSprite = get_node("Sprite")
+	NodeSprite = get_node("Sprite2D")
 	NodeArea2D = get_node("Area2D")
 	NodeAudio = get_node("Audio")
 	NodeAnim = get_node("AnimationPlayer")
@@ -46,11 +46,11 @@ func DOHUD(arg : int):
 		var nNode = Label.new()
 		nNode.name = "Label" + String(i)
 		nNode.text = nNode.name
-		nNode.margin_top = (i * 7) - 4
-		nNode.margin_left = 1
+		nNode.offset_top = (i * 7) - 4
+		nNode.offset_left = 1
 		nNode.uppercase = true
-		nNode.add_color_override("font_color", Color.black)
-		nNode.add_font_override("font", fnt)
+		nNode.add_theme_color_override("font_color", Color.BLACK)
+		nNode.add_theme_font_override("font", fnt)
 		HUD.add_child(nNode, true)
 		read.append(HUD.get_node(nNode.name))
 
@@ -75,8 +75,11 @@ func _physics_process(delta):
 			vel.y = jumpSpd / -3
 	
 	# apply movement
-	var mov = move_and_slide(vel, flr)
-	wrap()
+	set_velocity(vel)
+	set_up_direction(flr)
+	move_and_slide()
+	var mov = velocity
+	wrapp()
 	# check for Goobers
 	var hit = Overlap()
 	if !hit:
@@ -109,7 +112,7 @@ func _physics_process(delta):
 
 
 func Explode(arg : Vector2):
-	var xpl = SceneExplo.instance()
+	var xpl = SceneExplo.instantiate()
 	xpl.position = arg
 	NodeScene.add_child(xpl)
 
