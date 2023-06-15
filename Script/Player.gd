@@ -44,7 +44,7 @@ func DOHUD(arg : int):
 	HUD = NodeScene.get_node("HUD")
 	for i in range(arg):
 		var nNode = Label.new()
-		nNode.name = "Label" + String(i)
+		nNode.name = "Label" + str(i)
 		nNode.text = nNode.name
 		nNode.offset_top = (i * 7) - 4
 		nNode.offset_left = 1
@@ -103,11 +103,11 @@ func _physics_process(delta):
 	
 	
 	# HUD
-	#read[0].text = "onFloor: " + String(onFloor)
-	#read[1].text = "pos.x: " + String(position.x)
-	#read[2].text = "pos.y: " + String(position.y)
-	#read[3].text = "vel.x: " + String(vel.x)
-	#read[4].text = "vel.y: " + String(vel.y)
+	#read[0].text = "onFloor: " + str(onFloor)
+	#read[1].text = "pos.x: " + str(position.x)
+	#read[2].text = "pos.y: " + str(position.y)
+	#read[3].text = "vel.x: " + str(vel.x)
+	#read[4].text = "vel.y: " + str(vel.y)
 
 
 

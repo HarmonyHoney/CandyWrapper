@@ -54,7 +54,7 @@ func _process(delta):
 
 func MapLoad():
 	var nxtlvl = min(global.level, global.lastLevel)
-	var tm = load(tmpath + String(nxtlvl) + ".tscn").instantiate()
+	var tm = load(tmpath + str(nxtlvl) + ".tscn").instantiate()
 	tm.name = "TileMap"
 	add_child(tm)
 	NodeTileMap = get_node("TileMap")
@@ -64,16 +64,15 @@ func MapLoad():
 func MapStart():
 	print("--- MapStart: Begin ---")
 	print("global.level: ", global.level)
-	for pos in NodeTileMap.get_used_cells():
-		match NodeTileMap.get_cellv(pos):
+	for pos in NodeTileMap.get_used_cells(0):
+		match NodeTileMap.get_cell_source_id(0, pos):
 			TILE_WALL:
 				print(pos, ": Wall")
 				var atlas = Vector2(2, 2)
 				atlas.x = randf_range(0, 3)
 				atlas.y = randf_range(0, 3)
 				atlas = atlas.floor()
-				NodeTileMap.set_cell(pos.x, pos.y, TILE_WALL,
-				false, false, false, atlas)
+				#NodeTileMap.set_cell(0, pos, TILE_WALL)
 			TILE_PLAYER:
 				print(pos, ": Player")
 				var plr = ScenePlayer.instantiate()
@@ -82,7 +81,7 @@ func MapStart():
 				plr.name = "Player"
 				add_child(plr)
 				# remove tile from map
-				NodeTileMap.set_cellv(pos, -1)
+				NodeTileMap.set_cell(0, pos, -1)
 			TILE_GOOBER:
 				print(pos, ": Goober")
 				var gbr = SceneGoober.instantiate()
@@ -90,7 +89,7 @@ func MapStart():
 				gbr.position.x += 4
 				NodeGoobers.add_child(gbr)
 				# remove tile from map
-				NodeTileMap.set_cellv(pos, -1)
+				NodeTileMap.set_cell(0, pos, -1)
 	print("--- MapStart: End ---")
 
 func MapChange(delta):
