@@ -1,10 +1,10 @@
-extends BaseKine
+extends CharacterBody2D
 
-var NodeScene
-var NodeSprite
-var NodeArea2D
-var NodeAudio
-var NodeAnim
+@onready var NodeScene = global.Game
+@onready var NodeSprite := $Sprite2D
+@onready var NodeArea2D := $Area2D
+@onready var NodeAudio := $Audio
+@onready var NodeAnim := $AnimationPlayer
 
 var SceneExplo = load("res://Scene/Explosion.tscn")
 
@@ -23,21 +23,11 @@ var jump = false
 var startPos
 
 func _ready():
-	NodeScene = global.Game
-	
 	# snap down 8 pixels, if floor is present
 	var vecdn = Vector2(0, 8)
 	if test_move(transform, vecdn):
 		move_and_collide(vecdn)
 	startPos = position
-	# create hud labels
-	#DOHUD(5)
-	
-	# reference nodes
-	NodeSprite = get_node("Sprite2D")
-	NodeArea2D = get_node("Area2D")
-	NodeAudio = get_node("Audio")
-	NodeAnim = get_node("AnimationPlayer")
 
 func DOHUD(arg : int):
 	var fnt = load("res://Font/m3x6.tres")
@@ -76,10 +66,10 @@ func _physics_process(delta):
 	
 	# apply movement
 	set_velocity(vel)
-	set_up_direction(flr)
+	set_up_direction(Vector2.UP)
 	move_and_slide()
 	var mov = velocity
-	wrapp()
+	position = global.wrapp(position)
 	# check for Goobers
 	var hit = Overlap()
 	if !hit:

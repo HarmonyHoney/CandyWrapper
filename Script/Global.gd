@@ -2,18 +2,7 @@ extends Node2D
 
 var level = 0
 var lastLevel = 21
-
-var Main
 var Game
 
-var OST = load("res://Audio/OST.ogg")
-var audio
-
-func _ready():
-	await get_tree().create_timer(0.1).timeout
-	
-	audio = AudioStreamPlayer.new()
-	audio.name = "Audio"
-	add_child(audio)
-	audio.stream = OST
-	audio.play()
+func wrapp(pos := Vector2.ZERO):
+	return pos# Vector2(wrapf(pos.x, 0.0, 144.0), wrapf(pos.y, 0.0, 144.0))

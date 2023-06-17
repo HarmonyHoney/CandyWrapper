@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cn5awui7bqekp" path="res://Image/Goober.png" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(3, 3)
+size = Vector2(6, 6)
 
 [sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(3, 3)
+size = Vector2(6, 6)
 
 [sub_resource type="Animation" id="3"]
 resource_name = "Run"

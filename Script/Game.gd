@@ -6,9 +6,10 @@ var SceneTitle = load("res://Scene/Title.tscn")
 var SceneFinish = load("res://Scene/Finish.tscn")
 
 var NodeTileMap
-var NodeGoobers
-var NodeAudioWin
-var NodeAudioLose
+@onready var NodeGoobers := $Goobers
+@onready var NodeAudioWin := $Audio/Win
+@onready var NodeAudioLose := $Audio/Lose
+@onready var NodeAudioMusic := $Audio/Music
 
 var check = false
 var count = 0
@@ -22,19 +23,17 @@ var tmpath = "res://TileMap/TileMap"
 
 func _ready():
 	global.Game = self
-	NodeGoobers = get_node("Goobers")
-	NodeAudioWin = get_node("AudioWin")
-	NodeAudioLose = get_node("AudioLose")
 	
 	if global.level == 0:
 		add_child(SceneTitle.instantiate())
 	elif global.level == 21:
 		add_child(SceneFinish.instantiate())
 	
-	
 	MapLoad()
 	MapStart()
 	
+	await get_tree().create_timer(0.1).timeout
+	NodeAudioMusic.play()
 
 func _process(delta):
 	# quit the game
@@ -57,9 +56,7 @@ func MapLoad():
 	var tm = load(tmpath + str(nxtlvl) + ".tscn").instantiate()
 	tm.name = "TileMap"
 	add_child(tm)
-	NodeTileMap = get_node("TileMap")
-	
-
+	NodeTileMap = tm
 
 func MapStart():
 	print("--- MapStart: Begin ---")
