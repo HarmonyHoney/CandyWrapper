@@ -54,31 +54,20 @@ func MapStart():
 	print("--- MapStart: Begin ---")
 	print("global.level: ", global.level)
 	for pos in NodeTileMap.get_used_cells(0):
-		match NodeTileMap.get_cell_source_id(0, pos):
-			TILE_WALL:
-				print(pos, ": Wall")
-				var atlas = Vector2(2, 2)
-				atlas.x = randf_range(0, 3)
-				atlas.y = randf_range(0, 3)
-				atlas = atlas.floor()
-				#NodeTileMap.set_cell(0, pos, TILE_WALL)
-			TILE_PLAYER:
-				print(pos, ": Player")
-				var plr = ScenePlayer.instantiate()
-				plr.position = NodeTileMap.map_to_local(pos)
-				plr.position.x += 4
-				plr.name = "Player"
-				add_child(plr)
-				# remove tile from map
-				NodeTileMap.set_cell(0, pos, -1)
-			TILE_GOOBER:
-				print(pos, ": Goober")
-				var gbr = SceneGoober.instantiate()
-				gbr.position = NodeTileMap.map_to_local(pos)
-				gbr.position.x += 4
-				NodeGoobers.add_child(gbr)
-				# remove tile from map
-				NodeTileMap.set_cell(0, pos, -1)
+		var id = NodeTileMap.get_cell_source_id(0, pos)
+		if id == TILE_WALL:
+			print(pos, ": Wall")
+			var atlas = Vector2(randf_range(0, 3), randf_range(0, 3))
+			atlas = atlas.floor()
+			#NodeTileMap.set_cell(0, pos, TILE_WALL)
+		elif id == TILE_PLAYER or id == TILE_GOOBER:
+			var p = id == TILE_PLAYER
+			print(pos, ": Player" if p else ": Goober")
+			var inst = (ScenePlayer if p else SceneGoober).instantiate()
+			inst.position = NodeTileMap.map_to_local(pos) + Vector2(4, 0)
+			(self if p else NodeGoobers).add_child(inst)
+			# remove tile from map
+			NodeTileMap.set_cell(0, pos, -1)
 	print("--- MapStart: End ---")
 
 func MapChange(delta):

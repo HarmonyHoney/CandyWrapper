@@ -18,20 +18,18 @@ func _ready():
 		NodeSprite.flip_h = true
 
 func _physics_process(delta):
-	var cast = NodeCast.is_colliding()
-	
-	if cast == false:
-		vel.x = -vel.x
-		NodeSprite.flip_h = !NodeSprite.flip_h
+	if !NodeCast.is_colliding():
+		flip()
 	
 	velocity = vel
 	move_and_slide()
 	if velocity.x == 0:
-		vel.x = -vel.x
-		NodeSprite.flip_h = !NodeSprite.flip_h
+		flip()
 	position = global.wrapp(position)
 
-
+func flip():
+	vel.x = -vel.x
+	NodeSprite.flip_h = !NodeSprite.flip_h
 
 
 
