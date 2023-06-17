@@ -65,8 +65,7 @@ func _physics_process(delta):
 			vel.y = jumpSpd / -3
 	
 	# apply movement
-	set_velocity(vel)
-	set_up_direction(Vector2.UP)
+	velocity = vel
 	move_and_slide()
 	var mov = velocity
 	position = global.wrapp(position)

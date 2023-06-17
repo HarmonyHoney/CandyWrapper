@@ -12,6 +12,7 @@ var NodeTileMap
 @onready var NodeGoobers := $Goobers
 @onready var NodeAudioWin := $Audio/Win
 @onready var NodeAudioLose := $Audio/Lose
+@onready var NodeSprite := $Sprite2D
 
 var check = false
 var count = 0
@@ -105,11 +106,14 @@ func MapChange(delta):
 func Lose():
 	change = true
 	NodeAudioLose.play()
+	NodeSprite.visible = true
+	NodeSprite.frame = 2
 	global.level = max(1, global.level - 1)
 
 func Win():
 	change = true
 	NodeAudioWin.play()
+	NodeSprite.visible = true
 	global.level = min(global.lastLevel, global.level + 1)
 	print("Level Complete!, change to level: ", global.level)
 

@@ -24,7 +24,7 @@ func _physics_process(delta):
 		vel.x = -vel.x
 		NodeSprite.flip_h = !NodeSprite.flip_h
 	
-	set_velocity(vel)
+	velocity = vel
 	move_and_slide()
 	var mov = velocity
 	if mov.x == 0:

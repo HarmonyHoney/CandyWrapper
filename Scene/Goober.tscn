@@ -33,6 +33,7 @@ _data = {
 }
 
 [node name="Goober" type="CharacterBody2D"]
+z_index = 9
 collision_layer = 4
 script = ExtResource("1")
 

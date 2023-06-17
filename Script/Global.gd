@@ -14,6 +14,7 @@ func _ready():
 	add_child(audio)
 	audio.stream = OST
 	audio.play()
+	audio.finished.connect(audio.play)
 
 func wrapp(pos := Vector2.ZERO):
 	return Vector2(wrapf(pos.x, 0.0, 144.0), wrapf(pos.y, 0.0, 144.0))
