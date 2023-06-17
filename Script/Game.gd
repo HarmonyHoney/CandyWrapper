@@ -15,8 +15,8 @@ var NodeTileMap
 @onready var NodeSprite := $Sprite2D
 
 var check = false
-var count = 0
 
+var clock := 0.0
 var delay = 1.5
 var change = false
 
@@ -32,18 +32,14 @@ func _ready():
 	MapStart()
 
 func _process(delta):
+	clock += delta
 	# quit the game
 	if btn.p("ui_cancel"):
 		get_tree().quit()
 	
-	if global.level == 0:
-		if btn.p("ui_select"):
-			global.level += 1
-			DoChange()
-	if global.level == 21:
-		if btn.p("ui_select"):
-			global.level = 1
-			DoChange()
+	if btn.p("jump") and (global.level == 0 or (global.level == 21  and clock > 0.5)):
+		global.level = posmod(global.level + 1, 22)
+		DoChange()
 	
 	MapChange(delta)
 
@@ -94,14 +90,12 @@ func MapChange(delta):
 		return # skip the rest if change == true
 	
 	# should i check?
-	if !check:
-		return
-	# start check
-	check = false
-	count = NodeGoobers.get_child_count()
-	print("Goobers: ", count)
-	if count == 0:
-		Win()
+	if check:
+		check = false
+		var count = NodeGoobers.get_child_count()
+		print("Goobers: ", count)
+		if count == 0:
+			Win()
 
 func Lose():
 	change = true

@@ -67,12 +67,11 @@ func _physics_process(delta):
 	# apply movement
 	velocity = vel
 	move_and_slide()
-	var mov = velocity
 	position = global.wrapp(position)
 	# check for Goobers
 	var hit = Overlap()
 	if !hit:
-		if mov.y == 0:
+		if velocity.y == 0:
 			vel.y = 0
 		# check for floor 0.1 pixel down
 		onFloor = test_move(transform, Vector2(0, 0.1))
@@ -112,11 +111,11 @@ func Die():
 
 func Overlap():
 	var hit = false
-	var overlap = NodeArea2D.get_overlapping_areas()
-	for o in overlap:
-		print ("Overlapping: ", o.get_parent().name)
+	
+	for o in NodeArea2D.get_overlapping_areas():
 		var par = o.get_parent()
-		#print()
+		print ("Overlapping: ", par.name)
+		
 		if par is Goober:
 			if onFloor:
 				Die()
