@@ -8,8 +8,8 @@ var spd = 30
 var vel = Vector2.ZERO
 
 func _ready():
-	# move down 8 pixels to floor
-	move_and_collide(Vector2(0, 16))
+	# snap to floor
+	move_and_collide(Vector2(0, 3))
 	vel = Vector2(spd, 0)
 	# change starting direction
 	randomize()

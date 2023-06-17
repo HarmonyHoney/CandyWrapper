@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnbp88623k5jh"]
+[gd_scene load_steps=5 format=3 uid="uid://cnbp88623k5jh"]
 
 [ext_resource type="Script" path="res://Script/Game.gd" id="1"]
 [ext_resource type="Script" path="res://Script/CandySpawner.gd" id="2"]
 [ext_resource type="AudioStream" uid="uid://bu4rmhfiu1mm5" path="res://Audio/Win.ogg" id="3"]
 [ext_resource type="AudioStream" uid="uid://dgnfi0xvfvhnx" path="res://Audio/Lose.wav" id="4"]
-[ext_resource type="AudioStream" uid="uid://b66u6so2xpqao" path="res://Audio/OST.ogg" id="5_2bc7a"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1")
@@ -26,6 +25,3 @@ stream = ExtResource("3")
 
 [node name="Lose" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("4")
-
-[node name="Music" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("5_2bc7a")

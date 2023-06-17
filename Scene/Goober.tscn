@@ -12,6 +12,7 @@ size = Vector2(6, 6)
 [sub_resource type="Animation" id="3"]
 resource_name = "Run"
 length = 0.5
+loop_mode = 1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false

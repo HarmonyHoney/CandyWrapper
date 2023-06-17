@@ -12,7 +12,6 @@ var NodeTileMap
 @onready var NodeGoobers := $Goobers
 @onready var NodeAudioWin := $Audio/Win
 @onready var NodeAudioLose := $Audio/Lose
-@onready var NodeAudioMusic := $Audio/Music
 
 var check = false
 var count = 0
@@ -30,9 +29,6 @@ func _ready():
 	
 	MapLoad()
 	MapStart()
-	
-	await get_tree().create_timer(0.1).timeout
-	NodeAudioMusic.play()
 
 func _process(delta):
 	# quit the game

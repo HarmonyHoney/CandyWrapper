@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://rj7eb84vrayt"]
 
-[ext_resource path="res://Image/Title.png" type="Texture2D" id=1]
-[ext_resource path="res://Scene/TitlePlayerSprite.tscn" type="PackedScene" id=2]
+[ext_resource type="Texture2D" uid="uid://ccxmd1v0nd7wi" path="res://Image/Title.png" id="1"]
+[ext_resource type="PackedScene" uid="uid://cc80rwjcovadq" path="res://Scene/TitlePlayerSprite.tscn" id="2"]
 
 [node name="Title" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 centered = false
 hframes = 4
 
-[node name="TitlePlayerSprite" parent="." instance=ExtResource( 2 )]
+[node name="TitlePlayerSprite" parent="." instance=ExtResource("2")]
