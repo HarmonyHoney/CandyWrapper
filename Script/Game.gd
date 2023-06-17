@@ -1,5 +1,8 @@
 extends Node2D
 
+var tmpath = "res://TileMap/"
+enum {TILE_WALL = 0, TILE_PLAYER = 1, TILE_GOOBER = 2}
+
 var ScenePlayer = load("res://Scene/Player.tscn")
 var SceneGoober = load("res://Scene/Goober.tscn")
 var SceneTitle = load("res://Scene/Title.tscn")
@@ -16,10 +19,6 @@ var count = 0
 
 var delay = 1.5
 var change = false
-
-enum {TILE_WALL = 0, TILE_PLAYER = 1, TILE_GOOBER = 2}
-
-var tmpath = "res://TileMap/TileMap"
 
 func _ready():
 	global.Game = self
