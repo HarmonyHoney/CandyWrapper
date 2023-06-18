@@ -33,10 +33,7 @@ func _ready():
 
 func _process(delta):
 	clock += delta
-	# quit the game
-	if btn.p("ui_cancel"):
-		get_tree().quit()
-	
+	# title and finish
 	if btn.p("jump") and (global.level == 0 or (global.level == 21  and clock > 0.5)):
 		global.level = posmod(global.level + 1, 22)
 		DoChange()
@@ -91,7 +88,7 @@ func Lose():
 	NodeAudioLose.play()
 	NodeSprite.visible = true
 	NodeSprite.frame = 2
-	global.level = max(1, global.level - 1)
+	global.level = max(0, global.level - 1)
 
 func Win():
 	change = true
