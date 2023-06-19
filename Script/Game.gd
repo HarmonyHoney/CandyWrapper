@@ -5,8 +5,6 @@ enum {TILE_WALL = 0, TILE_PLAYER = 1, TILE_GOOBER = 2}
 
 var ScenePlayer = load("res://Scene/Player.tscn")
 var SceneGoober = load("res://Scene/Goober.tscn")
-var SceneTitle = load("res://Scene/Title.tscn")
-var SceneFinish = load("res://Scene/Finish.tscn")
 
 var NodeTileMap
 @onready var NodeGoobers := $Goobers
@@ -23,10 +21,14 @@ var change = false
 func _ready():
 	global.Game = self
 	
-	if global.level == 0:
-		add_child(SceneTitle.instantiate())
-	elif global.level == 21:
-		add_child(SceneFinish.instantiate())
+	if global.level == 0 or global.level == 21:
+		NodeSprite.frame = 0 if global.level == 0 else 3
+		NodeSprite.visible = true
+		var p = ScenePlayer.instantiate()
+		p.position = Vector2(72, 85)
+		p.scale.x = -1 if randf() < 0.5 else 1
+		p.set_script(null)
+		add_child(p)
 	
 	MapLoad()
 	MapStart()
