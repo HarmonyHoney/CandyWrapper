@@ -54,9 +54,8 @@ func MapStart():
 		var id = NodeTileMap.get_cell_source_id(0, pos)
 		if id == TILE_WALL:
 			print(pos, ": Wall")
-			var atlas = Vector2(randf_range(0, 3), randf_range(0, 3))
-			atlas = atlas.floor()
-			#NodeTileMap.set_cell(0, pos, TILE_WALL)
+			var atlas = Vector2(randi_range(0, 2), randi_range(0, 2))
+			NodeTileMap.set_cell(0, pos, TILE_WALL, atlas)
 		elif id == TILE_PLAYER or id == TILE_GOOBER:
 			var p = id == TILE_PLAYER
 			print(pos, ": Player" if p else ": Goober")
