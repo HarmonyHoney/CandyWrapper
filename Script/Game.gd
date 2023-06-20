@@ -1,22 +1,22 @@
 extends Node2D
 
-var tmpath = "res://TileMap/"
+var tmpath := "res://TileMap/"
 enum {TILE_WALL = 0, TILE_PLAYER = 1, TILE_GOOBER = 2}
+var NodeTileMap
 
 var ScenePlayer = load("res://Scene/Player.tscn")
 var SceneGoober = load("res://Scene/Goober.tscn")
+var SceneExplo = load("res://Scene/Explosion.tscn")
 
-var NodeTileMap
 @onready var NodeGoobers := $Goobers
 @onready var NodeAudioWin := $Audio/Win
 @onready var NodeAudioLose := $Audio/Lose
 @onready var NodeSprite := $Sprite2D
 
-var check = false
-
 var clock := 0.0
-var delay = 1.5
-var change = false
+var delay := 1.5
+var check := false
+var change := false
 
 func _ready():
 	global.Game = self
@@ -62,7 +62,7 @@ func MapStart():
 			var p = id == TILE_PLAYER
 			print(pos, ": Player" if p else ": Goober")
 			var inst = (ScenePlayer if p else SceneGoober).instantiate()
-			inst.position = NodeTileMap.map_to_local(pos) + Vector2(4, 0)
+			inst.position = NodeTileMap.map_to_local(pos) + Vector2(4, 0 if p else 1)
 			(self if p else NodeGoobers).add_child(inst)
 			# remove tile from map
 			NodeTileMap.set_cell(0, pos, -1)
@@ -101,3 +101,8 @@ func Win():
 func DoChange():
 	change = false
 	get_tree().reload_current_scene()
+
+func Explode(arg : Vector2):
+	var xpl = SceneExplo.instantiate()
+	xpl.position = arg
+	add_child(xpl)

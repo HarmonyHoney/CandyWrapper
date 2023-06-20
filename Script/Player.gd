@@ -6,43 +6,14 @@ extends CharacterBody2D
 @onready var NodeAudio := $Audio
 @onready var NodeAnim := $AnimationPlayer
 
-var SceneExplo = load("res://Scene/Explosion.tscn")
+var vel := Vector2.ZERO
+var spd := 60.0
+var grv := 255.0
+var jumpSpd := 133.0
+var termVel := 400.0
 
-var HUD
-var read = []
-
-var vel = Vector2.ZERO
-var spd = 60
-var grv = 255
-var jumpSpd = 133
-var termVel = 400
-
-var onFloor = false
-var jump = false
-
-var startPos
-
-func _ready():
-	# snap down 8 pixels, if floor is present
-	var vecdn = Vector2(0, 8)
-	if test_move(transform, vecdn):
-		move_and_collide(vecdn)
-	startPos = position
-
-func DOHUD(arg : int):
-	var fnt = load("res://Font/m3x6.tres")
-	HUD = NodeScene.get_node("HUD")
-	for i in range(arg):
-		var nNode = Label.new()
-		nNode.name = "Label" + str(i)
-		nNode.text = nNode.name
-		nNode.offset_top = (i * 7) - 4
-		nNode.offset_left = 1
-		nNode.uppercase = true
-		nNode.add_theme_color_override("font_color", Color.BLACK)
-		nNode.add_theme_font_override("font", fnt)
-		HUD.add_child(nNode, true)
-		read.append(HUD.get_node(nNode.name))
+var onFloor := false
+var jump := false
 
 func _physics_process(delta):
 	# gravity
@@ -77,8 +48,8 @@ func _physics_process(delta):
 		onFloor = test_move(transform, Vector2(0, 0.1))
 	
 	# sprite flip
-	if btnx !=0:
-		NodeSprite.flip_h = btn.d("left")
+	if btnx != 0:
+		NodeSprite.flip_h = btnx < 0
 	
 	# animation
 	if onFloor:
@@ -88,26 +59,11 @@ func _physics_process(delta):
 			TryLoop("Run")
 	else:
 		TryLoop("Jump")
-	
-	
-	# HUD
-	#read[0].text = "onFloor: " + str(onFloor)
-	#read[1].text = "pos.x: " + str(position.x)
-	#read[2].text = "pos.y: " + str(position.y)
-	#read[3].text = "vel.x: " + str(vel.x)
-	#read[4].text = "vel.y: " + str(vel.y)
-
-
-
-func Explode(arg : Vector2):
-	var xpl = SceneExplo.instantiate()
-	xpl.position = arg
-	NodeScene.add_child(xpl)
 
 func Die():
 	queue_free()
-	Explode(position)
-	global.Game.Lose()
+	NodeScene.Explode(position)
+	NodeScene.Lose()
 
 func Overlap():
 	var hit = false
@@ -117,20 +73,19 @@ func Overlap():
 		print ("Overlapping: ", par.name)
 		
 		if par is Goober:
-			if onFloor:
+			var above = position.y - 1 < par.position.y
+			
+			if onFloor or (vel.y < 0.0 and !above):
 				Die()
 			else:
-				if btn.d("jump"):
-					jump = true
-					vel.y = -jumpSpd
-				else:
-					jump = false
-					vel.y = -jumpSpd * 0.6
+				hit = true
+				jump = btn.d("jump")
+				vel.y = -jumpSpd * (1.0 if jump else 0.6)
+				
 				par.queue_free()
-				Explode(par.position)
+				NodeScene.Explode(par.position)
 				NodeScene.check = true
 				print("Goober destroyed")
-				hit = true
 	return hit
 
 func TryLoop(arg : String):

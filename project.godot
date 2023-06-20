@@ -14,7 +14,7 @@ config/name="Candy Wrapper"
 config/description="by Harmony Honey"
 run/main_scene="res://Scene/Game.tscn"
 config/features=PackedStringArray("4.1")
-config/icon="res://Image/picon.png"
+config/icon="res://Image/picon.svg"
 
 [autoload]
 

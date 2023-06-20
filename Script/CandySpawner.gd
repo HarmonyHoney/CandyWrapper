@@ -1,7 +1,7 @@
 extends Node2D
 
-var delay = 3
-var timer = 0
+var delay := 3.0
+var timer := 0.0
 
 var candy_tex = preload("res://Image/Candy.png")
 
@@ -11,7 +11,7 @@ var idle := []
 func _ready():
 	randomize()
 	delay = lerp(3.0, 0.333, global.level / global.lastLevel)
-	if global.level == 21:
+	if global.level == global.lastLevel:
 		delay = 0.15
 
 func _process(delta):
