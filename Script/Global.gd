@@ -4,7 +4,7 @@ var level := 0
 var lastLevel := 21
 var Game
 
-var OST = load("res://Audio/OST.ogg")
+var OST = load("res://Audio/OST.mp3")
 var audio
 
 func _ready():
