@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>net.hhoney.candy</id>
+
+  <name>Candy Wrapper</name>
+  <summary>Screen-wrapping arcade action</summary>
+
+  <developer id="net.hhoney">
+    <name translatable="no">HHoney Software</name>
+  </developer>
+
+  <description>
+    <p>Play your way through 20 levels of this arcade screen-wrapping action game inspired by Bubble Bobble!</p>
+    <p>Controls: Arrows + Spacebar / WASD / IJKL</p>
+    <p>Candy Wrapper was originally made within 24 hours for the 100 Lines of Code GameMaker Jam.</p>
+  </description>
+
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">mild</content_attribute>
+  </content_rating>
+
+  <url type="homepage">https://hhoney.net</url>
+  <url type="bugtracker">https://github.com/HarmonyHoney/CandyWrapper/issues</url>
+  <url type="donation">https://ko-fi.com/hhoney</url>
+
+  <branding>
+    <color type="primary" scheme_preference="light">#ffec99</color>
+    <color type="primary" scheme_preference="dark">#fe9d16</color>
+  </branding>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/HarmonyHoney/CandyWrapper/25254be41cf6708a1d607cb37c10dd158fbb1446/Image/screens/2.png</image>
+      <caption>Familiar retro-styled vibes</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/HarmonyHoney/CandyWrapper/25254be41cf6708a1d607cb37c10dd158fbb1446/Image/screens/1.png</image>
+      <caption>Beautiful pixel-art arcade style</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/HarmonyHoney/CandyWrapper/25254be41cf6708a1d607cb37c10dd158fbb1446/Image/screens/3.png</image>
+      <caption>Increasingly-challenging levels—can you beat all 20?</caption>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="4.3" date="2024-08-20">
+      <description>
+        <p>Candy Wrapper is now built using Godot Engine 4.3!</p>
+      </description>
+    </release>
+    <release version="4.2" date="2023-11-30">
+      <description>
+        <p>Candy Wrapper is now built using Godot Engine 4.2!</p>
+      </description>
+    </release>
+    <release version="4.0" date="2023-06-15">
+      <description>
+        <p>Candy Wrapper is now built using Godot Engine 4.0</p>
+      </description>
+    </release>
+    <release version="3.2.2" date="2020-08-30">
+      <description>
+        <p>Candy Wrapper is now built using Godot Engine 3.2.2</p>
+      </description>
+    </release>
+  </releases>
+
+  <launchable type="desktop-id">net.hhoney.candy.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Unlicense</project_license>
+</component>
