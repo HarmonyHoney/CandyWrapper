@@ -21,7 +21,7 @@ var change := false
 func _ready():
 	global.Game = self
 	
-	if global.level == 0 or global.level == 21:
+	if global.level == 0 or global.level == global.lastLevel:
 		NodeSprite.frame = 0 if global.level == 0 else 3
 		NodeSprite.visible = true
 		var p = ScenePlayer.instantiate()
@@ -36,8 +36,8 @@ func _ready():
 func _process(delta):
 	clock += delta
 	# title and finish
-	if btn.p("jump") and (global.level == 0 or (global.level == 21  and clock > 0.5)):
-		global.level = posmod(global.level + 1, 22)
+	if btn.p("jump") and (global.level == 0 or (global.level == global.lastLevel  and clock > 0.5)):
+		global.level = posmod(global.level + 1, global.lastLevel + 1)
 		DoChange()
 	
 	MapChange(delta)
