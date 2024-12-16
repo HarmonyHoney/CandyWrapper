@@ -21,8 +21,8 @@ var change := false
 func _ready():
 	global.Game = self
 	
-	if global.level == 0 or global.level == global.lastLevel:
-		NodeSprite.frame = 0 if global.level == 0 else 3
+	if global.level == global.firstLevel or global.level == global.lastLevel:
+		NodeSprite.frame = 0 if global.level == global.firstLevel else 3
 		NodeSprite.visible = true
 		var p = ScenePlayer.instantiate()
 		p.position = Vector2(72, 85)
@@ -35,8 +35,8 @@ func _ready():
 
 func _process(delta):
 	clock += delta
-	# title and finish
-	if btn.p("jump") and (global.level == 0 or (global.level == global.lastLevel  and clock > 0.5)):
+	# title screen is the first level, and "game complete" screen is the last level:
+	if btn.p("jump") and (global.level == global.firstLevel or (global.level == global.lastLevel  and clock > 0.5)):
 		global.level = posmod(global.level + 1, global.lastLevel + 1)
 		DoChange()
 	

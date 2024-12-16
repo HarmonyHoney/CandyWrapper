@@ -1,6 +1,7 @@
 extends Node2D
 
 var level := 0
+const firstLevel := 0
 const lastLevel := 21
 var Game
 
