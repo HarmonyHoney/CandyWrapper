@@ -10,7 +10,7 @@ var idle := []
 
 func _ready():
 	randomize()
-	delay = lerp(3.0, 0.333, global.level / global.lastLevel)
+	delay = lerp(3.0, 0.333, (global.level - global.firstLevel) / (global.lastLevel - global.firstLevel))
 	if global.level == global.lastLevel:
 		delay = 0.15
 
