@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Candy Wrapper
+Comment=Screen-wrapping arcade action
+Categories=Game;ArcadeGame;KidsGame;
+Icon=net.hhoney.candy
+Exec=godot-runner
+Type=Application
+Terminal=false

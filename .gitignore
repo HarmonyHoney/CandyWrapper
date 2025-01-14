@@ -1,3 +1,7 @@
 .godot/
 .import/
 [Ee]xport/
+
+# Flatpak build
+.flatpak-builder/
+repo/
