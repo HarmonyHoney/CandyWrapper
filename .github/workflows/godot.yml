@@ -1,4 +1,4 @@
-name: "Godot Engine"
+name: "Godot Export"
 on:
   workflow_dispatch:
   pull_request:
@@ -14,42 +14,65 @@ jobs:
   export:
     name: Export
     runs-on: ubuntu-latest
-    container:
-      image: docker.io/smks/godot-ci:4.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Cache Godot Engine downloads
+        id: cache-godot
+        uses: actions/cache@v4
         with:
-          lfs: true
+          path: |
+            export/godot
+            export/editor_data/export_templates/${{ env.GODOT_VERSION }}.stable
+          key: godot-${{ env.GODOT_VERSION }}
 
-      - name: Set up export templates
+      - name: Download Godot Engine from GitHub release
+        id: download
+        if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
-          mkdir -v -p ~/.local/share/godot/export_templates/
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          mkdir -p export && cd export
 
-      - name: Export
+          # Download Godot Engine itself
+          wget https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip && \
+          unzip Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip && \
+          mv Godot_v${GODOT_VERSION}-stable_linux.x86_64 godot
+
+          # Download export templates
+          mkdir -p editor_data/export_templates
+          wget https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz && \
+          unzip Godot_v${GODOT_VERSION}-stable_export_templates.tpz && \
+          mv templates editor_data/export_templates/${GODOT_VERSION}.stable
+
+      - name: Export PCK file
         run: |
-          mkdir --verbose --parents ./export/linux
-          godot --verbose --headless --path ./project.godot --export-pack "Linux/X11" ./export/linux/${EXPORT_NAME}.pck
+          cd export
+
+          # Tell Godot Engine to be self-contained
+          touch ._sc_
+
+          # NOTE: export filename is relative to the project path
+          ./godot --verbose --headless --path ../ --export-pack "Linux/X11" ../export/${EXPORT_NAME}.pck
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.EXPORT_NAME }}
-          path: export/linux/${{ env.EXPORT_NAME }}.pck
+          path: export/${{ env.EXPORT_NAME }}.pck
 
   release:
+    permissions: write-all
     name: Release
     needs: export
     if: ${{ github.event_name == 'release' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifact
+      - name: Download PCK file artifact
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.EXPORT_NAME }}
 
-      - name: Upload to release
+      - name: Upload PCK file to release
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
