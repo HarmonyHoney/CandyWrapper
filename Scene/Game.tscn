@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cnbp88623k5jh"]
 
-[ext_resource type="Script" path="res://Script/Game.gd" id="1"]
-[ext_resource type="Script" path="res://Script/CandySpawner.gd" id="2"]
+[ext_resource type="Script" uid="uid://53duobpbwbxp" path="res://Script/Game.gd" id="1"]
+[ext_resource type="Script" uid="uid://ber30nhbswcfr" path="res://Script/CandySpawner.gd" id="2"]
 [ext_resource type="AudioStream" uid="uid://bu4rmhfiu1mm5" path="res://Audio/Win.ogg" id="3"]
 [ext_resource type="Texture2D" uid="uid://ccxmd1v0nd7wi" path="res://Image/Title.png" id="3_rwxge"]
 [ext_resource type="AudioStream" uid="uid://dgnfi0xvfvhnx" path="res://Audio/Lose.wav" id="4"]

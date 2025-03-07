@@ -35,7 +35,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o3l4t"]
 _data = {
-"Idle": SubResource("1")
+&"Idle": SubResource("1")
 }
 
 [node name="Explosion" type="Node2D"]

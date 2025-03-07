@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://byheefdx4lxmx"]
 
-[ext_resource type="Script" path="res://Script/Goober.gd" id="1"]
+[ext_resource type="Script" uid="uid://crlrv5fxgaj27" path="res://Script/Goober.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cn5awui7bqekp" path="res://Image/Goober.png" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
@@ -29,7 +29,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gy1w2"]
 _data = {
-"Run": SubResource("3")
+&"Run": SubResource("3")
 }
 
 [node name="Goober" type="CharacterBody2D"]

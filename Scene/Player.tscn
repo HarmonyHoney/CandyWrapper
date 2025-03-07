@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b17jmr687k1sm"]
 
-[ext_resource type="Script" path="res://Script/Player.gd" id="1"]
+[ext_resource type="Script" uid="uid://coe2w411fgqy2" path="res://Script/Player.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cboj002ecda55" path="res://Image/Player.png" id="2"]
 [ext_resource type="AudioStream" uid="uid://demm2lx0twrlj" path="res://Audio/Jump.ogg" id="3"]
 
@@ -63,9 +63,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xy4w5"]
 _data = {
-"Idle": SubResource("3"),
-"Jump": SubResource("4"),
-"Run": SubResource("5")
+&"Idle": SubResource("3"),
+&"Jump": SubResource("4"),
+&"Run": SubResource("5")
 }
 
 [node name="Player" type="CharacterBody2D"]
