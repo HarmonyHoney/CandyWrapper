@@ -2,7 +2,7 @@
 
 Candy Wrapper is a Looping Platformer Arcade Game!
 
-Built with [Godot Engine 4.3](https://godotengine.org)
+Built with [Godot Engine 4.4](https://godotengine.org)
 
 Full Game at: [https://hhoneysoftware.itch.io/candy](https://hhoneysoftware.itch.io/candy)
 
