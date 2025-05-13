@@ -112,6 +112,7 @@ ui_fullscreen={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(1, 0.984314, 0.8, 1)
 environment/defaults/default_environment="res://default_env.tres"
 quality/driver/driver_name="GLES2"
