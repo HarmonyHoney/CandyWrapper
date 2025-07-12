@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Script/Arcade.gd" type="Script" id=1]
+[ext_resource path="res://Scene/Game.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Audio/OST.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Image/Title.png" type="Texture" id=4]
+
+[node name="Arcade" type="Node2D"]
+script = ExtResource( 1 )
+game_scene = ExtResource( 2 )
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+autoplay = true
+
+[node name="Title" type="Sprite" parent="."]
+z_index = 1
+texture = ExtResource( 4 )
+centered = false
+hframes = 4
+frame = 1

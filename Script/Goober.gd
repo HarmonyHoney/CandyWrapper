@@ -1,17 +1,15 @@
-extends "res://Script/BaseKine.gd"
+extends BaseKine
 class_name Goober
 
-var NodeCast
-var NodeSprite
+onready var NodeCast = $"RayCast2D"
+onready var NodeSprite = $"Sprite"
 
 var spd = 30
 var vel = Vector2.ZERO
 
 
 func _ready():
-	NodeSprite = get_node("Sprite")
-	NodeCast = get_node("RayCast2D")
-	move_and_collide(Vector2(0, 16)) # move down 8 pixels to floor
+	move_and_collide(Vector2(0, 32)) # move down 8 pixels to floor
 	vel = Vector2(spd, 0)
 	# change starting direction
 	randomize()

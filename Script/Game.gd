@@ -1,9 +1,9 @@
 extends Node2D
 
-var ScenePlayer = load("res://Scene/Player.tscn")
-var SceneGoober = load("res://Scene/Goober.tscn")
-var SceneTitle = load("res://Scene/Title.tscn")
-var SceneFinish = load("res://Scene/Finish.tscn")
+export var ScenePlayer : PackedScene
+export var SceneGoober : PackedScene
+export var SceneTitle : PackedScene
+export var SceneFinish : PackedScene
 
 var NodeTileMap
 var NodeGoobers
@@ -20,15 +20,17 @@ enum {TILE_WALL = 0, TILE_PLAYER = 1, TILE_GOOBER = 2}
 
 var tmpath = "res://TileMap/TileMap"
 
+var arcade
+
 func _ready():
-	global.Game = self
+	
 	NodeGoobers = get_node("Goobers")
 	NodeAudioWin = get_node("AudioWin")
 	NodeAudioLose = get_node("AudioLose")
 	
-	if global.level == 0:
+	if arcade.level == 0:
 		add_child(SceneTitle.instance())
-	elif global.level == 21:
+	elif arcade.level == arcade.lastLevel:
 		add_child(SceneFinish.instance())
 	
 	
@@ -38,22 +40,18 @@ func _ready():
 
 func _process(delta):
 	# quit the game
-	if btn.p("ui_cancel"):
+	if p("ui_cancel"):
 		get_tree().quit()
 	
-	if global.level == 0:
-		if btn.p("ui_select"):
-			global.level += 1
-			DoChange()
-	if global.level == 21:
-		if btn.p("ui_select"):
-			global.level = 1
+	if arcade.level == 0 or arcade.level == 21:
+		if p("ui_select"):
+			arcade.level = wrapi(arcade.level + 1, 1, 21)
 			DoChange()
 	
 	MapChange(delta)
 
 func MapLoad():
-	var nxtlvl = min(global.level, global.lastLevel)
+	var nxtlvl = min(arcade.level, arcade.lastLevel)
 	var tm = load(tmpath + String(nxtlvl) + ".tscn").instance()
 	tm.name = "TileMap"
 	add_child(tm)
@@ -63,7 +61,7 @@ func MapLoad():
 
 func MapStart():
 	print("--- MapStart: Begin ---")
-	print("global.level: ", global.level)
+	print("arcade.level: ", arcade.level)
 	for pos in NodeTileMap.get_used_cells():
 		match NodeTileMap.get_cellv(pos):
 			TILE_WALL:
@@ -114,14 +112,35 @@ func MapChange(delta):
 func Lose():
 	change = true
 	NodeAudioLose.play()
-	global.level = max(1, global.level - 1)
+	arcade.level = max(1, arcade.level - 1)
+	arcade.title.visible = true
+	arcade.title.frame = 2
 
 func Win():
 	change = true
 	NodeAudioWin.play()
-	global.level = min(global.lastLevel, global.level + 1)
-	print("Level Complete!, change to level: ", global.level)
+	arcade.level = min(arcade.lastLevel, arcade.level + 1)
+	print("Level Complete!, change to level: ", arcade.level)
+	arcade.title.visible = true
+	arcade.title.frame = 1
 
 func DoChange():
 	change = false
-	get_tree().reload_current_scene()
+	arcade.start_game()
+
+
+
+func NumBool(arg : bool):
+	return 1 if arg else 0
+
+# DOWN
+func d(arg : String):
+	return NumBool(Input.is_action_pressed(arg))
+
+# PRESSED
+func p(arg : String):
+	return NumBool(Input.is_action_just_pressed(arg))
+
+# RELEASED
+func r(arg : String):
+	return NumBool(Input.is_action_just_released(arg))

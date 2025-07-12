@@ -20,7 +20,7 @@ tracks/0/keys = {
 }
 
 [node name="TitlePlayerSprite" type="Sprite"]
-position = Vector2( 68, 80 )
+position = Vector2( 68, 72 )
 texture = ExtResource( 1 )
 centered = false
 hframes = 7

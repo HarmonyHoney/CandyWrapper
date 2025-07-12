@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name BaseKine
 
 const flr = Vector2(0, -1)
 

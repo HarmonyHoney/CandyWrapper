@@ -28,6 +28,7 @@ tracks/0/keys = {
 }
 
 [node name="Goober" type="KinematicBody2D"]
+z_index = 2
 collision_layer = 4
 script = ExtResource( 1 )
 

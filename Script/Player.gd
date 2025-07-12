@@ -1,12 +1,12 @@
-extends "res://Script/BaseKine.gd"
+extends BaseKine
 
-var NodeScene
-var NodeSprite
-var NodeArea2D
-var NodeAudio
-var NodeAnim
+onready var game = get_parent()
+onready var NodeSprite = $"Sprite"
+onready var NodeArea2D = $"Area2D"
+onready var NodeAudio = $"Audio"
+onready var NodeAnim = $"AnimationPlayer"
 
-var SceneExplo = load("res://Scene/Explosion.tscn")
+export var SceneExplo : PackedScene
 
 var HUD
 var read = []
@@ -23,8 +23,6 @@ var jump = false
 var startPos
 
 func _ready():
-	NodeScene = global.Game
-	
 	# snap down 8 pixels, if floor is present
 	var vecdn = Vector2(0, 8)
 	if test_move(transform, vecdn):
@@ -32,16 +30,10 @@ func _ready():
 	startPos = position
 	# create hud labels
 	#DOHUD(5)
-	
-	# reference nodes
-	NodeSprite = get_node("Sprite")
-	NodeArea2D = get_node("Area2D")
-	NodeAudio = get_node("Audio")
-	NodeAnim = get_node("AnimationPlayer")
 
 func DOHUD(arg : int):
 	var fnt = load("res://Font/m3x6.tres")
-	HUD = NodeScene.get_node("HUD")
+	HUD = game.get_node("HUD")
 	for i in range(arg):
 		var nNode = Label.new()
 		nNode.name = "Label" + String(i)
@@ -60,17 +52,17 @@ func _physics_process(delta):
 	vel.y = clamp(vel.y, -termVel, termVel)
 	
 	# horizontal input
-	var btnx = btn.d("right") - btn.d("left")
+	var btnx = game.d("right") - game.d("left")
 	vel.x = btnx * spd
 	
 	# jump
 	if onFloor:
-		if btn.p("jump"):
+		if game.p("jump"):
 			jump = true
 			vel.y = -jumpSpd
 			NodeAudio.play()
 	elif jump:
-		if !btn.d("jump") and vel.y < jumpSpd / -3:
+		if !game.d("jump") and vel.y < jumpSpd / -3:
 			jump = false
 			vel.y = jumpSpd / -3
 	
@@ -87,7 +79,7 @@ func _physics_process(delta):
 	
 	# sprite flip
 	if btnx !=0:
-		NodeSprite.flip_h = btn.d("left")
+		NodeSprite.flip_h = game.d("left")
 	
 	# animation
 	if onFloor:
@@ -111,12 +103,12 @@ func _physics_process(delta):
 func Explode(arg : Vector2):
 	var xpl = SceneExplo.instance()
 	xpl.position = arg
-	NodeScene.add_child(xpl)
+	game.add_child(xpl)
 
 func Die():
 	queue_free()
 	Explode(position)
-	global.Game.Lose()
+	game.Lose()
 
 func Overlap():
 	var hit = false
@@ -125,11 +117,11 @@ func Overlap():
 		print ("Overlapping: ", o.get_parent().name)
 		var par = o.get_parent()
 		#print()
-		if par is global.Goober:
+		if par is Goober:
 			if onFloor:
 				Die()
 			else:
-				if btn.d("jump"):
+				if game.d("jump"):
 					jump = true
 					vel.y = -jumpSpd
 				else:
@@ -137,7 +129,7 @@ func Overlap():
 					vel.y = -jumpSpd * 0.6
 				par.queue_free()
 				Explode(par.position)
-				NodeScene.check = true
+				game.check = true
 				print("Goober destroyed")
 				hit = true
 	return hit

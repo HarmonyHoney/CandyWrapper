@@ -5,13 +5,13 @@ var delay = 3
 var timer = 0
 
 var rand = RandomNumberGenerator.new()
+onready var arcade = get_parent().get_parent()
 
 func _ready():
 	SceneCandy = load("res://Scene/Candy.tscn")
 	rand.randomize()
-	#delay = (global.lastLevel / global.level)
-	delay = lerp(3, 0.333, global.level / global.lastLevel)
-	if global.level == 21:
+	delay = lerp(3, 0.333, arcade.level / arcade.lastLevel)
+	if arcade.level == 21:
 		delay = 0.15
 	
 
