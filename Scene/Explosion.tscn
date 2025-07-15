@@ -39,6 +39,8 @@ _data = {
 }
 
 [node name="Explosion" type="Node2D"]
+z_index = 4
+z_as_relative = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2")
@@ -50,7 +52,7 @@ stream = ExtResource("3")
 autoplay = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "Idle"
 libraries = {
-"": SubResource("AnimationLibrary_o3l4t")
+&"": SubResource("AnimationLibrary_o3l4t")
 }
+autoplay = "Idle"

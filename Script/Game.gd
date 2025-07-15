@@ -46,6 +46,8 @@ func MapLoad():
 	var nxtlvl = min(global.level, global.lastLevel)
 	var tm = load(tmpath + str(nxtlvl) + ".tscn").instantiate()
 	tm.name = "TileMap"
+	tm.z_as_relative = false
+	tm.z_index = 0
 	add_child(tm)
 	NodeTileMap = tm
 

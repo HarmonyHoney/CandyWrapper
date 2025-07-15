@@ -69,7 +69,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
-z_index = 10
+z_index = 3
+z_as_relative = false
 collision_layer = 2
 script = ExtResource("1")
 
