@@ -9,6 +9,3 @@ del /q *mac.zip*
 
 rmdir /s /q web
 mkdir web
-
-rmdir /s /q android
-mkdir android
