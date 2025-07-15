@@ -17,8 +17,10 @@ var clock := 0.0
 var delay := 1.5
 var check := false
 var change := false
+var rg := RandomNumberGenerator.new()
 
 func _ready():
+	rg.randomize()
 	global.Game = self
 	
 	if global.level == global.firstLevel or global.level == global.lastLevel:
@@ -46,6 +48,8 @@ func MapLoad():
 	var nxtlvl = min(global.level, global.lastLevel)
 	var tm = load(tmpath + str(nxtlvl) + ".tscn").instance()
 	tm.name = "TileMap"
+	tm.z_as_relative = false
+	tm.z_index = 0
 	add_child(tm)
 	NodeTileMap = tm
 
@@ -56,7 +60,6 @@ func MapStart():
 		var id = NodeTileMap.get_cellv(pos)
 		if id == TILE_WALL:
 			print(pos, ": Wall")
-			var rg = RandomNumberGenerator.new()
 			var atlas = Vector2(rg.randi_range(0, 2), rg.randi_range(0, 2))
 			NodeTileMap.set_cellv(pos, TILE_WALL, false, false, false, atlas)
 		elif id == TILE_PLAYER or id == TILE_GOOBER:
@@ -87,6 +90,7 @@ func MapChange(delta):
 
 func Lose():
 	change = true
+	NodeAudioLose.pitch_scale = rand_range(0.9, 1.1)
 	NodeAudioLose.play()
 	NodeSprite.visible = true
 	NodeSprite.frame = 2
@@ -94,6 +98,7 @@ func Lose():
 
 func Win():
 	change = true
+	NodeAudioWin.pitch_scale = rand_range(0.9, 1.1)
 	NodeAudioWin.play()
 	NodeSprite.visible = true
 	global.level = min(global.lastLevel, global.level + 1)
@@ -106,4 +111,5 @@ func DoChange():
 func Explode(arg : Vector2):
 	var xpl = SceneExplo.instance()
 	xpl.position = arg
+	xpl.get_node("AudioStreamPlayer").pitch_scale = rand_range(0.9, 1.1)
 	add_child(xpl)

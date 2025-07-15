@@ -7,10 +7,11 @@ var candy_tex = preload("res://Image/Candy.png")
 
 var active := []
 var idle := []
+var rg = RandomNumberGenerator.new()
 
 func _ready():
-	randomize()
-	delay = lerp(3.0, 0.333, (global.level - global.firstLevel) / (global.lastLevel - global.firstLevel))
+	rg.randomize()
+	delay = lerp(3.0, 0.333, float(global.level - global.firstLevel) / float(global.lastLevel - global.firstLevel))
 	if global.level == global.lastLevel:
 		delay = 0.15
 
@@ -36,6 +37,6 @@ func _process(delta):
 			c.z_index = -1
 			add_child(c)
 		active.append(c)
+		c.flip_h = randf() > 0.5
 		c.position.y = -16
-		var rg = RandomNumberGenerator.new()
 		c.position.x = rg.randi_range(0, 144)
