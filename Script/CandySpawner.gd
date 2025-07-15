@@ -1,26 +1,41 @@
 extends Node2D
 
-var SceneCandy
-var delay = 3
-var timer = 0
+var delay := 3.0
+var timer := 0.0
 
-var rand = RandomNumberGenerator.new()
-onready var arcade = get_parent().get_parent()
+var candy_tex = preload("res://Image/Candy.png")
+
+var active := []
+var idle := []
 
 func _ready():
-	SceneCandy = load("res://Scene/Candy.tscn")
-	rand.randomize()
-	delay = lerp(3, 0.333, arcade.level / arcade.lastLevel)
-	if arcade.level == 21:
+	randomize()
+	delay = lerp(3.0, 0.333, (global.level - global.firstLevel) / (global.lastLevel - global.firstLevel))
+	if global.level == global.lastLevel:
 		delay = 0.15
-	
 
 func _process(delta):
 	timer -= delta
 	
+	for i in active:
+		i.position.y += 60.0 * delta
+		if i.position.y > 160:
+			idle.append(i)
+	
+	for i in idle:
+		active.erase(i)
+	
 	if timer < 0:
 		timer = delay
-		var cnd = SceneCandy.instance()
-		cnd.position.y = -16
-		cnd.position.x = rand.randi_range(0, 144)
-		add_child(cnd)
+		var c
+		if idle.size() > 0:
+			c = idle.pop_back()
+		else:
+			c = Sprite.new()
+			c.texture = candy_tex
+			c.z_index = -1
+			add_child(c)
+		active.append(c)
+		c.position.y = -16
+		var rg = RandomNumberGenerator.new()
+		c.position.x = rg.randi_range(0, 144)

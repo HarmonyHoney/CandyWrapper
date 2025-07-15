@@ -10,25 +10,24 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody2D",
-"class": "BaseKine",
-"language": "GDScript",
-"path": "res://Script/BaseKine.gd"
-}, {
-"base": "BaseKine",
 "class": "Goober",
 "language": "GDScript",
 "path": "res://Script/Goober.gd"
 } ]
 _global_script_class_icons={
-"BaseKine": "",
 "Goober": ""
 }
 
 [application]
 
 config/name="Candy Wrapper Godot 3.6"
-run/main_scene="res://Scene/Arcade.tscn"
+run/main_scene="res://Scene/Game.tscn"
 config/icon="res://Image/picon.png"
+
+[autoload]
+
+global="*res://Script/Global.gd"
+btn="*res://Script/btn.gd"
 
 [display]
 

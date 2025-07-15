@@ -1,94 +1,72 @@
 extends Node2D
 
-export var ScenePlayer : PackedScene
-export var SceneGoober : PackedScene
-export var SceneTitle : PackedScene
-export var SceneFinish : PackedScene
-
-var NodeTileMap
-var NodeGoobers
-var NodeAudioWin
-var NodeAudioLose
-
-var check = false
-var count = 0
-
-var delay = 1.5
-var change = false
-
+var tmpath := "res://TileMap/"
 enum {TILE_WALL = 0, TILE_PLAYER = 1, TILE_GOOBER = 2}
+var NodeTileMap
 
-var tmpath = "res://TileMap/TileMap"
+var ScenePlayer = load("res://Scene/Player.tscn")
+var SceneGoober = load("res://Scene/Goober.tscn")
+var SceneExplo = load("res://Scene/Explosion.tscn")
 
-var arcade
+onready var NodeGoobers := $Goobers
+onready var NodeAudioWin := $Audio/Win
+onready var NodeAudioLose := $Audio/Lose
+onready var NodeSprite := $Sprite
+
+var clock := 0.0
+var delay := 1.5
+var check := false
+var change := false
 
 func _ready():
+	global.Game = self
 	
-	NodeGoobers = get_node("Goobers")
-	NodeAudioWin = get_node("AudioWin")
-	NodeAudioLose = get_node("AudioLose")
-	
-	if arcade.level == 0:
-		add_child(SceneTitle.instance())
-	elif arcade.level == arcade.lastLevel:
-		add_child(SceneFinish.instance())
-	
+	if global.level == global.firstLevel or global.level == global.lastLevel:
+		NodeSprite.frame = 0 if global.level == global.firstLevel else 3
+		NodeSprite.visible = true
+		var p = ScenePlayer.instance()
+		p.position = Vector2(72, 85)
+		p.scale.x = -1 if randf() < 0.5 else 1
+		p.set_script(null)
+		add_child(p)
 	
 	MapLoad()
 	MapStart()
-	
 
 func _process(delta):
-	# quit the game
-	if p("ui_cancel"):
-		get_tree().quit()
-	
-	if arcade.level == 0 or arcade.level == 21:
-		if p("ui_select"):
-			arcade.level = wrapi(arcade.level + 1, 1, 21)
-			DoChange()
+	clock += delta
+	# title screen is the first level, and "game complete" screen is the last level:
+	if btn.p("jump") and (global.level == global.firstLevel or (global.level == global.lastLevel  and clock > 0.5)):
+		global.level = posmod(global.level + 1, global.lastLevel + 1)
+		DoChange()
 	
 	MapChange(delta)
 
 func MapLoad():
-	var nxtlvl = min(arcade.level, arcade.lastLevel)
-	var tm = load(tmpath + String(nxtlvl) + ".tscn").instance()
+	var nxtlvl = min(global.level, global.lastLevel)
+	var tm = load(tmpath + str(nxtlvl) + ".tscn").instance()
 	tm.name = "TileMap"
 	add_child(tm)
-	NodeTileMap = get_node("TileMap")
-	
-
+	NodeTileMap = tm
 
 func MapStart():
 	print("--- MapStart: Begin ---")
-	print("arcade.level: ", arcade.level)
+	print("global.level: ", global.level)
 	for pos in NodeTileMap.get_used_cells():
-		match NodeTileMap.get_cellv(pos):
-			TILE_WALL:
-				print(pos, ": Wall")
-				var atlas = Vector2(2, 2)
-				atlas.x = rand_range(0, 3)
-				atlas.y = rand_range(0, 3)
-				atlas = atlas.floor()
-				NodeTileMap.set_cell(pos.x, pos.y, TILE_WALL,
-				false, false, false, atlas)
-			TILE_PLAYER:
-				print(pos, ": Player")
-				var plr = ScenePlayer.instance()
-				plr.position = NodeTileMap.map_to_world(pos)
-				plr.position.x += 4
-				plr.name = "Player"
-				add_child(plr)
-				# remove tile from map
-				NodeTileMap.set_cellv(pos, -1)
-			TILE_GOOBER:
-				print(pos, ": Goober")
-				var gbr = SceneGoober.instance()
-				gbr.position = NodeTileMap.map_to_world(pos)
-				gbr.position.x += 4
-				NodeGoobers.add_child(gbr)
-				# remove tile from map
-				NodeTileMap.set_cellv(pos, -1)
+		var id = NodeTileMap.get_cellv(pos)
+		if id == TILE_WALL:
+			print(pos, ": Wall")
+			var rg = RandomNumberGenerator.new()
+			var atlas = Vector2(rg.randi_range(0, 2), rg.randi_range(0, 2))
+			NodeTileMap.set_cellv(pos, TILE_WALL, false, false, false, atlas)
+		elif id == TILE_PLAYER or id == TILE_GOOBER:
+			var p = id == TILE_PLAYER
+			print(pos, ": Player" if p else ": Goober")
+			var inst = (ScenePlayer if p else SceneGoober).instance()
+			inst.position = (NodeTileMap.cell_size * pos) + Vector2(4, 0 if p else 5)
+			(self if p else NodeGoobers).add_child(inst)
+			# remove tile from map
+			NodeTileMap.set_cellv(pos, -1)
 	print("--- MapStart: End ---")
 
 func MapChange(delta):
@@ -100,47 +78,32 @@ func MapChange(delta):
 		return # skip the rest if change == true
 	
 	# should i check?
-	if !check:
-		return
-	# start check
-	check = false
-	count = NodeGoobers.get_child_count()
-	print("Goobers: ", count)
-	if count == 0:
-		Win()
+	if check:
+		check = false
+		var count = NodeGoobers.get_child_count()
+		print("Goobers: ", count)
+		if count == 0:
+			Win()
 
 func Lose():
 	change = true
 	NodeAudioLose.play()
-	arcade.level = max(1, arcade.level - 1)
-	arcade.title.visible = true
-	arcade.title.frame = 2
+	NodeSprite.visible = true
+	NodeSprite.frame = 2
+	global.level = max(0, global.level - 1)
 
 func Win():
 	change = true
 	NodeAudioWin.play()
-	arcade.level = min(arcade.lastLevel, arcade.level + 1)
-	print("Level Complete!, change to level: ", arcade.level)
-	arcade.title.visible = true
-	arcade.title.frame = 1
+	NodeSprite.visible = true
+	global.level = min(global.lastLevel, global.level + 1)
+	print("Level Complete!, change to level: ", global.level)
 
 func DoChange():
 	change = false
-	arcade.start_game()
+	get_tree().reload_current_scene()
 
-
-
-func NumBool(arg : bool):
-	return 1 if arg else 0
-
-# DOWN
-func d(arg : String):
-	return NumBool(Input.is_action_pressed(arg))
-
-# PRESSED
-func p(arg : String):
-	return NumBool(Input.is_action_just_pressed(arg))
-
-# RELEASED
-func r(arg : String):
-	return NumBool(Input.is_action_just_released(arg))
+func Explode(arg : Vector2):
+	var xpl = SceneExplo.instance()
+	xpl.position = arg
+	add_child(xpl)

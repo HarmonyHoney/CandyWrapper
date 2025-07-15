@@ -1,36 +1,36 @@
-extends BaseKine
+extends KinematicBody2D
 class_name Goober
 
-onready var NodeCast = $"RayCast2D"
-onready var NodeSprite = $"Sprite"
+onready var NodeCast := $RayCast2D
+onready var NodeSprite := $Sprite
 
-var spd = 30
-var vel = Vector2.ZERO
-
+var spd := 30.0
+var vel := Vector2(spd, 0.001)
+var flip_clock := 1.0
 
 func _ready():
-	move_and_collide(Vector2(0, 32)) # move down 8 pixels to floor
-	vel = Vector2(spd, 0)
 	# change starting direction
 	randomize()
 	if randf() > 0.5:
-		vel.x = -vel.x
-		NodeSprite.flip_h = true
+		flip()
 
 func _physics_process(delta):
-	var cast = NodeCast.is_colliding()
+	flip_clock += delta
 	
-	if cast == false:
-		vel.x = -vel.x
-		NodeSprite.flip_h = !NodeSprite.flip_h
+	if !NodeCast.is_colliding():
+		flip()
 	
-	var mov = move_and_slide(vel)
-	if mov.x == 0:
-		vel.x = -vel.x
-		NodeSprite.flip_h = !NodeSprite.flip_h
-	wrap()
+	var velocity = move_and_slide(vel)
+	if velocity.x == 0:
+		flip()
+	
+	position = global.wrapp(position)
 
-
+func flip():
+	if flip_clock < 0.1: return
+	vel.x = -vel.x
+	NodeSprite.flip_h = !NodeSprite.flip_h
+	flip_clock = 0.0
 
 
 

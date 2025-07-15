@@ -1,20 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Script/Game.gd" type="Script" id=1]
 [ext_resource path="res://Script/CandySpawner.gd" type="Script" id=2]
 [ext_resource path="res://Audio/Win.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Audio/Lose.wav" type="AudioStream" id=4]
-[ext_resource path="res://Scene/Goober.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scene/Player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scene/Title.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scene/Finish.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Image/Title.png" type="Texture" id=9]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
-ScenePlayer = ExtResource( 6 )
-SceneGoober = ExtResource( 5 )
-SceneTitle = ExtResource( 7 )
-SceneFinish = ExtResource( 8 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -27,8 +20,18 @@ script = ExtResource( 2 )
 
 [node name="Goobers" type="Node2D" parent="."]
 
-[node name="AudioWin" type="AudioStreamPlayer" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+z_index = 1
+texture = ExtResource( 9 )
+centered = false
+hframes = 4
+frame = 1
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Win" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 3 )
 
-[node name="AudioLose" type="AudioStreamPlayer" parent="."]
+[node name="Lose" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 4 )
