@@ -88,6 +88,7 @@ func MapChange(delta):
 
 func Lose():
 	change = true
+	NodeAudioLose.pitch_scale = randf_range(0.9, 1.1)
 	NodeAudioLose.play()
 	NodeSprite.visible = true
 	NodeSprite.frame = 2
@@ -95,6 +96,7 @@ func Lose():
 
 func Win():
 	change = true
+	NodeAudioWin.pitch_scale = randf_range(0.9, 1.1)
 	NodeAudioWin.play()
 	NodeSprite.visible = true
 	global.level = min(global.lastLevel, global.level + 1)
@@ -107,4 +109,5 @@ func DoChange():
 func Explode(arg : Vector2):
 	var xpl = SceneExplo.instantiate()
 	xpl.position = arg
+	xpl.get_node("AudioStreamPlayer").pitch_scale = randf_range(0.9, 1.1)
 	add_child(xpl)

@@ -10,9 +10,10 @@ var idle := []
 
 func _ready():
 	randomize()
-	delay = lerp(3.0, 0.333, (global.level - global.firstLevel) / (global.lastLevel - global.firstLevel))
+	delay = lerp(3.0, 0.333, float(global.level - global.firstLevel) / float(global.lastLevel - global.firstLevel))
 	if global.level == global.lastLevel:
 		delay = 0.15
+	print("candy delay: ", delay)
 
 func _process(delta):
 	timer -= delta
@@ -38,3 +39,4 @@ func _process(delta):
 		active.append(c)
 		c.position.y = -16
 		c.position.x = randi_range(0, 144)
+		c.flip_h = randf() > 0.5

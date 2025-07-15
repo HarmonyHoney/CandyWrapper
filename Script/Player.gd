@@ -29,6 +29,7 @@ func _physics_process(delta):
 		if btn.p("jump"):
 			jump = true
 			vel.y = -jumpSpd
+			NodeAudio.pitch_scale = randf_range(0.9, 1.1)
 			NodeAudio.play()
 	elif jump:
 		if !btn.d("jump") and vel.y < jumpSpd / -3:
