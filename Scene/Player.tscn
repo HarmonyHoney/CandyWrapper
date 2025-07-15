@@ -63,6 +63,7 @@ tracks/0/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 z_index = 3
+z_as_relative = false
 collision_layer = 2
 script = ExtResource( 1 )
 

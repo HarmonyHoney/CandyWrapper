@@ -16,17 +16,19 @@ offset = Vector2( 72, 72 )
 current = true
 
 [node name="CandySpawner" type="Node2D" parent="."]
+z_as_relative = false
 script = ExtResource( 2 )
-
-[node name="Goobers" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
 z_index = 1
+z_as_relative = false
 texture = ExtResource( 9 )
 centered = false
 hframes = 4
 frame = 1
+
+[node name="Goobers" type="Node2D" parent="."]
 
 [node name="Audio" type="Node" parent="."]
 

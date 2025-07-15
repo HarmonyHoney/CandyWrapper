@@ -34,6 +34,8 @@ tracks/1/keys = {
 }
 
 [node name="Explosion" type="Node2D"]
+z_index = 4
+z_as_relative = false
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
