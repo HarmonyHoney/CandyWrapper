@@ -1,40 +1,40 @@
 extends KinematicBody2D
 
 var game
-onready var NodeSprite := $Sprite
-onready var NodeArea2D := $Area2D
-onready var NodeAudio := $Audio
-onready var NodeAnim := $AnimationPlayer
+onready var sprite := $Sprite
+onready var area := $Area2D
+onready var audio := $Audio
+onready var anim := $AnimationPlayer
 
 var vel := Vector2.ZERO
 var spd := 60.0
 var grv := 255.0
-var jumpSpd := 133.0
-var termVel := 400.0
+var jump_vel := 133.0
+var term_vel := 400.0
 
-var onFloor := false
+var is_floor := false
 var jump := false
 
 func _physics_process(delta):
 	# gravity
 	vel.y += grv * delta
-	vel.y = clamp(vel.y, -termVel, termVel)
+	vel.y = clamp(vel.y, -term_vel, term_vel)
 	
 	# horizontal input
 	var btnx = game.btnd("right") - game.btnd("left")
 	vel.x = btnx * spd
 	
 	# jump
-	if onFloor:
+	if is_floor:
 		if game.btnp("jump"):
 			jump = true
-			vel.y = -jumpSpd
-			NodeAudio.pitch_scale = rand_range(0.9, 1.1)
-			NodeAudio.play()
+			vel.y = -jump_vel
+			audio.pitch_scale = rand_range(0.9, 1.1)
+			audio.play()
 	elif jump:
-		if !game.btnd("jump") and vel.y < jumpSpd / -3:
+		if !game.btnd("jump") and vel.y < jump_vel / -3:
 			jump = false
-			vel.y = jumpSpd / -3
+			vel.y = jump_vel / -3
 	
 	# apply movement
 	var velocity = move_and_slide(vel)
@@ -45,14 +45,14 @@ func _physics_process(delta):
 		if velocity.y == 0:
 			vel.y = 0
 		# check for floor 0.1 pixel down
-		onFloor = test_move(transform, Vector2(0, 0.1))
+		is_floor = test_move(transform, Vector2(0, 0.1))
 	
 	# sprite flip
 	if btnx != 0:
-		NodeSprite.flip_h = btnx < 0
+		sprite.flip_h = btnx < 0
 	
 	# animation
-	if onFloor:
+	if is_floor:
 		if btnx == 0:
 			TryLoop("Idle")
 		else:
@@ -62,35 +62,35 @@ func _physics_process(delta):
 
 func Die():
 	queue_free()
-	game.Explode(position)
-	game.Lose()
+	game.explode(position)
+	game.lose()
 
 func Overlap():
 	var hit = false
 	
-	for o in NodeArea2D.get_overlapping_areas():
+	for o in area.get_overlapping_areas():
 		var par = o.get_parent()
 		print ("Overlapping: ", par.name)
 		
 		if par is Goober:
 			var above = position.y - 1 < par.position.y
 			
-			if onFloor or (vel.y < 0.0 and !above):
+			if is_floor or (vel.y < 0.0 and !above):
 				Die()
 			else:
 				hit = true
 				jump = game.btnd("jump")
-				vel.y = -jumpSpd * (1.0 if jump else 0.6)
+				vel.y = -jump_vel * (1.0 if jump else 0.6)
 				
 				par.queue_free()
-				game.Explode(par.position)
+				game.explode(par.position)
 				game.check = true
 				print("Goober destroyed")
 	return hit
 
 func TryLoop(arg : String):
-	if arg == NodeAnim.current_animation:
+	if arg == anim.current_animation:
 		return false
 	else:
-		NodeAnim.play(arg)
+		anim.play(arg)
 		return true

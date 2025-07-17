@@ -1,13 +1,23 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Script/Game.gd" type="Script" id=1]
 [ext_resource path="res://Script/FallingCandy.gd" type="Script" id=2]
 [ext_resource path="res://Audio/Win.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Audio/Lose.wav" type="AudioStream" id=4]
+[ext_resource path="res://Image/Candy.png" type="Texture" id=5]
+[ext_resource path="res://Scene/Goober.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scene/Player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scene/Explosion.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Image/Title.png" type="Texture" id=9]
+[ext_resource path="res://Audio/OST.mp3" type="AudioStream" id=10]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
+tmpath = "res://TileMap"
+OST = ExtResource( 10 )
+scene_player = ExtResource( 7 )
+scene_goober = ExtResource( 6 )
+scene_explode = ExtResource( 8 )
 
 [node name="Audio" type="Node" parent="."]
 
@@ -25,6 +35,7 @@ current = true
 z_index = -1
 z_as_relative = false
 script = ExtResource( 2 )
+candy_tex = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false

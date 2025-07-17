@@ -49,7 +49,7 @@ shape = SubResource( 2 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, 5 )
+cast_to = Vector2( 0, 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Run"

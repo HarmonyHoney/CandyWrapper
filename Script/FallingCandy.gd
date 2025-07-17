@@ -1,19 +1,16 @@
 extends Node2D
 
-var delay := 3.0
-var timer := 0.0
-
-var candy_tex = preload("res://Image/Candy.png")
-
-var active := []
-var idle := []
-var rg = RandomNumberGenerator.new()
-onready var game = get_parent()
+export var candy_tex : Texture
 export var delay_range = Vector2(3.0, 0.333)
 export var delay_end = 0.15
 
+var active := []
+var idle := []
+var clock := 0.0
+var delay := 3.0
+onready var game = get_parent()
+
 func _ready():
-	rg.randomize()
 	scene()
 
 func scene():
@@ -22,7 +19,6 @@ func scene():
 		delay = delay_end
 
 func _process(delta):
-	timer -= delta
 	
 	for i in active:
 		i.position.y += 60.0 * delta
@@ -32,8 +28,10 @@ func _process(delta):
 	for i in idle:
 		active.erase(i)
 	
-	if timer < 0:
-		timer = delay
+	clock += delta
+	
+	if clock > delay:
+		clock = 0
 		var c
 		if idle.size() > 0:
 			c = idle.pop_back()
@@ -45,4 +43,4 @@ func _process(delta):
 		active.append(c)
 		c.flip_h = randf() > 0.5
 		c.position.y = -16
-		c.position.x = rg.randi_range(0, 144)
+		c.position.x = game.rg.randi_range(0, 144)

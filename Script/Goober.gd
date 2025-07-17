@@ -1,13 +1,13 @@
 extends KinematicBody2D
 class_name Goober
 
-onready var NodeCast := $RayCast2D
-onready var NodeSprite := $Sprite
+var game
+onready var raycast := $RayCast2D
+onready var sprite := $Sprite
 
 var spd := 30.0
 var vel := Vector2(spd, 0.001)
 var flip_clock := 1.0
-var game
 
 func _ready():
 	# change starting direction
@@ -18,7 +18,7 @@ func _ready():
 func _physics_process(delta):
 	flip_clock += delta
 	
-	if !NodeCast.is_colliding():
+	if !raycast.is_colliding():
 		flip()
 	
 	var velocity = move_and_slide(vel)
@@ -30,7 +30,7 @@ func _physics_process(delta):
 func flip():
 	if flip_clock > 0.1:
 		vel.x = -vel.x
-		NodeSprite.flip_h = !NodeSprite.flip_h
+		sprite.flip_h = !sprite.flip_h
 		flip_clock = 0.0
 
 
