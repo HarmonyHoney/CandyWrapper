@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Goober",
 "language": "GDScript",
-"path": "res://Script/Goober.gd"
+"path": "res://src/game/goober.gd"
 } ]
 _global_script_class_icons={
 "Goober": ""
@@ -21,8 +21,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Candy Wrapper Godot 3.6"
-run/main_scene="res://Scene/Game.tscn"
-config/icon="res://Image/picon.png"
+run/main_scene="res://src/game/game.tscn"
+config/icon="res://media/image/picon.png"
 
 [display]
 
