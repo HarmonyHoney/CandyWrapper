@@ -4,11 +4,12 @@ export var candy_tex : Texture
 export var delay_range = Vector2(3.0, 0.333)
 export var delay_end = 0.15
 
+onready var game = get_parent()
+
 var active := []
 var idle := []
 var clock := 0.0
 var delay := 3.0
-onready var game = get_parent()
 
 func _ready():
 	scene()

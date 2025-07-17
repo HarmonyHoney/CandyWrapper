@@ -6,7 +6,6 @@ export var scene_player : PackedScene
 export var scene_goober : PackedScene
 export var scene_explode : PackedScene
 
-onready var goobers := $Goobers
 onready var actors := $Actors
 onready var audio_win := $Audio/Win
 onready var audio_lose := $Audio/Lose
@@ -21,14 +20,15 @@ var level_start := 0
 var level_end := 21
 var map_clock := Vector2(0, 0.5)
 var delay_clock := Vector2(0, 1.5)
-var check := false
-var change := false
+var is_check := false
+var is_change := false
 var rg := RandomNumberGenerator.new()
+var goober_array = []
 
 func _ready():
 	rg.randomize()
 	
-	new_map()
+	map_next()
 	
 	yield(get_tree().create_timer(0.3), "timeout")
 	
@@ -38,16 +38,24 @@ func _ready():
 	audio.play()
 	audio.connect("finished", audio, "play")
 
-func new_map():
-	for i in goobers.get_children():
-		i.queue_free()
+func _process(delta):
+	map_clock.x += delta
+	# title screen is the first level, and "game complete" screen is the last level:
+	if btnp("jump") and (level == level_start or (level == level_end and map_clock.x > map_clock.y)):
+		level = posmod(level + 1, level_end + 1)
+		map_next()
+	
+	map_change_check(delta)
+
+func map_next():
 	for i in actors.get_children():
 		i.queue_free()
 	
-	change = false
-	check = false
+	is_change = false
+	is_check = false
 	delay_clock.x = 0
 	map_clock.x = 0
+	goober_array = []
 	
 	sprite.visible = false
 	
@@ -62,15 +70,6 @@ func new_map():
 	
 	map_load()
 	falling_candy.scene()
-
-func _process(delta):
-	map_clock.x += delta
-	# title screen is the first level, and "game complete" screen is the last level:
-	if btnp("jump") and (level == level_start or (level == level_end and map_clock.x > map_clock.y)):
-		level = posmod(level + 1, level_end + 1)
-		new_map()
-	
-	map_change(delta)
 
 func map_load():
 	print("--- map_load(): Begin --- level: ", level)
@@ -93,37 +92,27 @@ func map_load():
 			var inst = (scene_player if p else scene_goober).instance()
 			inst.position = (tile_map.cell_size * pos) + Vector2(4, 4.99)
 			inst.game = self
-			(actors if p else goobers).add_child(inst)
+			actors.add_child(inst)
 			# remove tile from map
 			tile_map.set_cellv(pos, -1)
 	print("--- map_load(): End ---")
 
-func map_change(delta):
-	# if its time to change scene
-	if change:
-		delay_clock.x += delta
-		if delay_clock.x > delay_clock.y:
-			new_map()
-		return # skip the rest if change == true
-	
+func map_change_check(delta):
 	# should i check?
-	if check:
-		check = false
-		var count = goobers.get_child_count()
-		print("Goobers: ", count)
+	if is_check:
+		is_check = false
+		var count = goober_array.size()
+		print("Goobers left: ", count)
 		if count == 0:
 			win()
-
-func lose():
-	change = true
-	audio_lose.pitch_scale = rand_range(0.9, 1.1)
-	audio_lose.play()
-	sprite.visible = true
-	sprite.frame = 2
-	level = max(0, level - 1)
+	# else if its time to change scene
+	elif is_change:
+		delay_clock.x += delta
+		if delay_clock.x > delay_clock.y:
+			map_next()
 
 func win():
-	change = true
+	is_change = true
 	audio_win.pitch_scale = rand_range(0.9, 1.1)
 	audio_win.play()
 	sprite.visible = true
@@ -131,10 +120,18 @@ func win():
 	level = min(level_end, level + 1)
 	print("Level Complete!, change to level: ", level)
 
+func lose():
+	is_change = true
+	audio_lose.pitch_scale = rand_range(0.9, 1.1)
+	audio_lose.play()
+	sprite.visible = true
+	sprite.frame = 2
+	level = max(0, level - 1)
+
 func explode(arg : Vector2):
 	var xpl = scene_explode.instance()
 	xpl.position = arg
-	xpl.get_node("AudioStreamPlayer").pitch_scale = rand_range(0.9, 1.1)
+	xpl.get_node("Audio").pitch_scale = rand_range(0.9, 1.1)
 	actors.add_child(xpl)
 
 # BUTTON DOWN

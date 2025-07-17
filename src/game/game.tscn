@@ -46,6 +46,4 @@ centered = false
 hframes = 4
 frame = 1
 
-[node name="Goobers" type="Node2D" parent="."]
-
 [node name="Actors" type="Node2D" parent="."]

@@ -42,7 +42,7 @@ texture = ExtResource( 2 )
 hframes = 4
 frame = 3
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Audio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 autoplay = true
 

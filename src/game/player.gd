@@ -1,11 +1,11 @@
 extends KinematicBody2D
 
-var game
 onready var sprite := $Sprite
 onready var area := $Area2D
 onready var audio := $Audio
 onready var anim := $AnimationPlayer
 
+var game
 var vel := Vector2.ZERO
 var spd := 60.0
 var grv := 255.0
@@ -13,7 +13,7 @@ var jump_vel := 133.0
 var term_vel := 400.0
 
 var is_floor := false
-var jump := false
+var is_jump := false
 
 func _physics_process(delta):
 	# gravity
@@ -27,13 +27,13 @@ func _physics_process(delta):
 	# jump
 	if is_floor:
 		if game.btnp("jump"):
-			jump = true
+			is_jump = true
 			vel.y = -jump_vel
 			audio.pitch_scale = rand_range(0.9, 1.1)
 			audio.play()
-	elif jump:
+	elif is_jump:
 		if !game.btnd("jump") and vel.y < jump_vel / -3:
-			jump = false
+			is_jump = false
 			vel.y = jump_vel / -3
 	
 	# apply movement
@@ -70,7 +70,7 @@ func Overlap():
 	
 	for o in area.get_overlapping_areas():
 		var par = o.get_parent()
-		print ("Overlapping: ", par.name)
+		print ("Overlapping: ", par.name, " at ", par.position)
 		
 		if par is Goober:
 			var above = position.y - 1 < par.position.y
@@ -79,13 +79,13 @@ func Overlap():
 				Die()
 			else:
 				hit = true
-				jump = game.btnd("jump")
-				vel.y = -jump_vel * (1.0 if jump else 0.6)
+				is_jump = game.btnd("jump")
+				vel.y = -jump_vel * (1.0 if is_jump else 0.6)
 				
 				par.queue_free()
 				game.explode(par.position)
-				game.check = true
-				print("Goober destroyed")
+				game.is_check = true
+				print("Goober destroyed ")
 	return hit
 
 func TryLoop(arg : String):

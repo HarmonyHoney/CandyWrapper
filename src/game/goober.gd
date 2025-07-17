@@ -1,13 +1,19 @@
 extends KinematicBody2D
 class_name Goober
 
-var game
 onready var raycast := $RayCast2D
 onready var sprite := $Sprite
 
+var game
 var spd := 30.0
 var vel := Vector2(spd, 0.001)
 var flip_clock := 1.0
+
+func _enter_tree():
+	game.goober_array.append(self)
+
+func _exit_tree():
+	game.goober_array.erase(self)
 
 func _ready():
 	# change starting direction
