@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Script/Game.gd" type="Script" id=1]
+[ext_resource path="res://Script/FallingCandy.gd" type="Script" id=2]
 [ext_resource path="res://Audio/Win.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Audio/Lose.wav" type="AudioStream" id=4]
 [ext_resource path="res://Image/Title.png" type="Texture" id=9]
@@ -19,6 +20,11 @@ stream = ExtResource( 4 )
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2( 72, 72 )
 current = true
+
+[node name="FallingCandy" type="Node2D" parent="."]
+z_index = -1
+z_as_relative = false
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false

@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
-var global
-onready var NodeScene = global.Game
+var game
 onready var NodeSprite := $Sprite
 onready var NodeArea2D := $Area2D
 onready var NodeAudio := $Audio
@@ -22,24 +21,24 @@ func _physics_process(delta):
 	vel.y = clamp(vel.y, -termVel, termVel)
 	
 	# horizontal input
-	var btnx = global.d("right") - global.d("left")
+	var btnx = game.btnd("right") - game.btnd("left")
 	vel.x = btnx * spd
 	
 	# jump
 	if onFloor:
-		if global.p("jump"):
+		if game.btnp("jump"):
 			jump = true
 			vel.y = -jumpSpd
 			NodeAudio.pitch_scale = rand_range(0.9, 1.1)
 			NodeAudio.play()
 	elif jump:
-		if !global.d("jump") and vel.y < jumpSpd / -3:
+		if !game.btnd("jump") and vel.y < jumpSpd / -3:
 			jump = false
 			vel.y = jumpSpd / -3
 	
 	# apply movement
 	var velocity = move_and_slide(vel)
-	position = global.wrapp(position)
+	position = game.wrapp(position)
 	# check for Goobers
 	var hit = Overlap()
 	if !hit:
@@ -63,8 +62,8 @@ func _physics_process(delta):
 
 func Die():
 	queue_free()
-	NodeScene.Explode(position)
-	NodeScene.Lose()
+	game.Explode(position)
+	game.Lose()
 
 func Overlap():
 	var hit = false
@@ -80,12 +79,12 @@ func Overlap():
 				Die()
 			else:
 				hit = true
-				jump = global.d("jump")
+				jump = game.btnd("jump")
 				vel.y = -jumpSpd * (1.0 if jump else 0.6)
 				
 				par.queue_free()
-				NodeScene.Explode(par.position)
-				NodeScene.check = true
+				game.Explode(par.position)
+				game.check = true
 				print("Goober destroyed")
 	return hit
 

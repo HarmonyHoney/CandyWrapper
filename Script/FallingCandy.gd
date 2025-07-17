@@ -8,16 +8,18 @@ var candy_tex = preload("res://Image/Candy.png")
 var active := []
 var idle := []
 var rg = RandomNumberGenerator.new()
-onready var global = get_parent()
+onready var game = get_parent()
+export var delay_range = Vector2(3.0, 0.333)
+export var delay_end = 0.15
 
 func _ready():
 	rg.randomize()
 	scene()
 
 func scene():
-	delay = lerp(3.0, 0.333, float(global.level - global.firstLevel) / float(global.lastLevel - global.firstLevel))
-	if global.level == global.lastLevel:
-		delay = 0.15
+	delay = lerp(delay_range.x, delay_range.y, float(game.level - game.level_start) / float(game.level_end - game.level_start))
+	if game.level == game.level_end:
+		delay = delay_end
 
 func _process(delta):
 	timer -= delta

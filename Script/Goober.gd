@@ -7,7 +7,7 @@ onready var NodeSprite := $Sprite
 var spd := 30.0
 var vel := Vector2(spd, 0.001)
 var flip_clock := 1.0
-var global
+var game
 
 func _ready():
 	# change starting direction
@@ -25,13 +25,13 @@ func _physics_process(delta):
 	if velocity.x == 0:
 		flip()
 	
-	position = global.wrapp(position)
+	position = game.wrapp(position)
 
 func flip():
-	if flip_clock < 0.1: return
-	vel.x = -vel.x
-	NodeSprite.flip_h = !NodeSprite.flip_h
-	flip_clock = 0.0
+	if flip_clock > 0.1:
+		vel.x = -vel.x
+		NodeSprite.flip_h = !NodeSprite.flip_h
+		flip_clock = 0.0
 
 
 
