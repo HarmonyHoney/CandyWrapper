@@ -18,6 +18,7 @@ var delay := 1.5
 var check := false
 var change := false
 var rg := RandomNumberGenerator.new()
+var global
 
 func _ready():
 	rg.randomize()
@@ -38,7 +39,7 @@ func _ready():
 func _process(delta):
 	clock += delta
 	# title screen is the first level, and "game complete" screen is the last level:
-	if btn.p("jump") and (global.level == global.firstLevel or (global.level == global.lastLevel  and clock > 0.5)):
+	if global.p("jump") and (global.level == global.firstLevel or (global.level == global.lastLevel  and clock > 0.5)):
 		global.level = posmod(global.level + 1, global.lastLevel + 1)
 		DoChange()
 	
@@ -66,7 +67,8 @@ func MapStart():
 			var p = id == TILE_PLAYER
 			print(pos, ": Player" if p else ": Goober")
 			var inst = (ScenePlayer if p else SceneGoober).instance()
-			inst.position = (NodeTileMap.cell_size * pos) + Vector2(4, 0 if p else 5)
+			inst.position = (NodeTileMap.cell_size * pos) + Vector2(4, 4.99)
+			inst.global = global
 			(self if p else NodeGoobers).add_child(inst)
 			# remove tile from map
 			NodeTileMap.set_cellv(pos, -1)
@@ -106,7 +108,7 @@ func Win():
 
 func DoChange():
 	change = false
-	get_tree().reload_current_scene()
+	global.scene_change()
 
 func Explode(arg : Vector2):
 	var xpl = SceneExplo.instance()

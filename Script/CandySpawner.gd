@@ -8,9 +8,13 @@ var candy_tex = preload("res://Image/Candy.png")
 var active := []
 var idle := []
 var rg = RandomNumberGenerator.new()
+onready var global = get_parent()
 
 func _ready():
 	rg.randomize()
+	scene()
+
+func scene():
 	delay = lerp(3.0, 0.333, float(global.level - global.firstLevel) / float(global.lastLevel - global.firstLevel))
 	if global.level == global.lastLevel:
 		delay = 0.15

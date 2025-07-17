@@ -7,6 +7,7 @@ onready var NodeSprite := $Sprite
 var spd := 30.0
 var vel := Vector2(spd, 0.001)
 var flip_clock := 1.0
+var global
 
 func _ready():
 	# change starting direction

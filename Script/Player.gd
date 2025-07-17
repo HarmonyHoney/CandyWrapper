@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var global
 onready var NodeScene = global.Game
 onready var NodeSprite := $Sprite
 onready var NodeArea2D := $Area2D
@@ -21,18 +22,18 @@ func _physics_process(delta):
 	vel.y = clamp(vel.y, -termVel, termVel)
 	
 	# horizontal input
-	var btnx = btn.d("right") - btn.d("left")
+	var btnx = global.d("right") - global.d("left")
 	vel.x = btnx * spd
 	
 	# jump
 	if onFloor:
-		if btn.p("jump"):
+		if global.p("jump"):
 			jump = true
 			vel.y = -jumpSpd
 			NodeAudio.pitch_scale = rand_range(0.9, 1.1)
 			NodeAudio.play()
 	elif jump:
-		if !btn.d("jump") and vel.y < jumpSpd / -3:
+		if !global.d("jump") and vel.y < jumpSpd / -3:
 			jump = false
 			vel.y = jumpSpd / -3
 	
@@ -79,7 +80,7 @@ func Overlap():
 				Die()
 			else:
 				hit = true
-				jump = btn.d("jump")
+				jump = global.d("jump")
 				vel.y = -jumpSpd * (1.0 if jump else 0.6)
 				
 				par.queue_free()

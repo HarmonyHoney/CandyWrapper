@@ -21,13 +21,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Candy Wrapper Godot 3.6"
-run/main_scene="res://Scene/Game.tscn"
+run/main_scene="res://Scene/Global.tscn"
 config/icon="res://Image/picon.png"
-
-[autoload]
-
-global="*res://Script/Global.gd"
-btn="*res://Script/btn.gd"
 
 [display]
 
