@@ -6,7 +6,7 @@ class_name Goober
 
 var game
 var spd := 30.0
-var vel := Vector2(spd, 1)
+var vel := Vector2(spd, 0)
 var flip_clock := 1.0
 
 func _enter_tree():
@@ -27,7 +27,9 @@ func _physics_process(delta):
 	if !raycast.is_colliding():
 		flip()
 	
-	velocity = vel
+	
+	move_and_collide(Vector2(0, 1))
+	velocity = Vector2(vel.x, 0)
 	move_and_slide()
 	if velocity.x == 0:
 		flip()
