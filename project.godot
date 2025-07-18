@@ -12,14 +12,9 @@ config_version=5
 
 config/name="Candy Wrapper"
 config/description="by Harmony Honey"
-run/main_scene="res://Scene/Game.tscn"
+run/main_scene="uid://c0r7ub5njku02"
 config/features=PackedStringArray("4.4")
-config/icon="res://Image/picon.svg"
-
-[autoload]
-
-btn="*res://Script/btn.gd"
-global="*res://Script/Global.gd"
+config/icon="res://media/image/picon.svg"
 
 [display]
 
