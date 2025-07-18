@@ -6,7 +6,7 @@ class_name Goober
 
 var game
 var spd := 30.0
-var vel := Vector2(spd, 0.001)
+var vel := Vector2(spd, 1)
 var flip_clock := 1.0
 
 func _enter_tree():

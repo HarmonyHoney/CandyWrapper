@@ -18,6 +18,7 @@ func scene():
 	delay = lerp(delay_range.x, delay_range.y, float(game.level - game.level_start) / float(game.level_end - game.level_start))
 	if game.level == game.level_end:
 		delay = delay_end
+	print("falling candy delay: ", delay)
 
 func _process(delta):
 	

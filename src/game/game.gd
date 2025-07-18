@@ -89,7 +89,7 @@ func map_load():
 			var p = id == TILE_PLAYER
 			print(pos, ": Player" if p else ": Goober")
 			var inst = (scene_player if p else scene_goober).instantiate()
-			inst.position = (pos * Vector2i(8, 8)) + Vector2i(4, 7.99)
+			inst.position = (pos * Vector2i(8, 8)) + Vector2i(4, 5.99)
 			inst.game = self
 			actors.add_child(inst)
 			# remove tile from map
