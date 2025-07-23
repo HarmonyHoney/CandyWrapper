@@ -11,6 +11,7 @@ onready var audio_win := $Audio/Win
 onready var audio_lose := $Audio/Lose
 onready var sprite := $Sprite
 onready var falling_candy := $FallingCandy
+onready var tile_back := $TileBack
 
 enum {TILE_WALL = 0, TILE_PLAYER = 1, TILE_GOOBER = 2}
 var tile_map
@@ -79,6 +80,7 @@ func map_load():
 	tm.z_index = 0
 	actors.add_child(tm)
 	tile_map = tm
+	tile_back.clear()
 	
 	for pos in tile_map.get_used_cells():
 		var id = tile_map.get_cellv(pos)
@@ -86,6 +88,7 @@ func map_load():
 			print(pos, ": Wall")
 			var atlas = Vector2(rg.randi_range(0, 2), rg.randi_range(0, 2))
 			tile_map.set_cellv(pos, TILE_WALL, false, false, false, atlas)
+			tile_back.set_cellv(pos, 0)
 		elif id == TILE_PLAYER or id == TILE_GOOBER:
 			var p = id == TILE_PLAYER
 			print(pos, ": Player" if p else ": Goober")
