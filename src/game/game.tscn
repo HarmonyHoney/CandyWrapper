@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://c0r7ub5njku02"]
+[gd_scene load_steps=13 format=4 uid="uid://c0r7ub5njku02"]
 
 [ext_resource type="PackedScene" uid="uid://cux4r3027spi2" path="res://src/game/goober.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://2iefvjsm0cus" path="res://src/game/explode.tscn" id="2"]
 [ext_resource type="AudioStream" uid="uid://7sq3il53l6oa" path="res://media/audio/OST.mp3" id="2_jhw8o"]
 [ext_resource type="PackedScene" uid="uid://cstif16r0wb6d" path="res://src/game/player.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://c8x7k3ocjcko5" path="res://media/image/Candy.png" id="7"]
+[ext_resource type="TileSet" uid="uid://be0ya7200aq52" path="res://src/map/TileBack.tres" id="8_n7s5x"]
 [ext_resource type="Script" uid="uid://c3oih3aajstd" path="res://src/game/falling_candy.gd" id="9"]
 [ext_resource type="Script" uid="uid://duxithaxd70u8" path="res://src/game/game.gd" id="10"]
 
@@ -44,10 +45,15 @@ stream = SubResource("AudioStreamWAV_n7s5x")
 offset = Vector2(72, 72)
 
 [node name="FallingCandy" type="Node2D" parent="."]
-z_index = -1
+z_index = -2
 z_as_relative = false
 script = ExtResource("9")
 candy_tex = ExtResource("7")
+
+[node name="TileBack" type="TileMapLayer" parent="."]
+z_index = -1
+z_as_relative = false
+tile_set = ExtResource("8_n7s5x")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 visible = false
