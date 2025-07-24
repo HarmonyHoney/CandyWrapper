@@ -7,7 +7,7 @@ on:
       - released
 
 env:
-  GODOT_VERSION: 4.3
+  GODOT_VERSION: 4.4.1
   EXPORT_NAME: candy
 
 jobs:
