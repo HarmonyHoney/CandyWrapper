@@ -43,7 +43,7 @@
     </screenshot>
   </screenshots>
 
-  <releases type="external" url="https://github.com/HarmonyHoney/CandyWrapper/raw/refs/heads/master/linux/net.hhoney.candy.metainfo.releases.xml" />
+  <releases type="external" url="https://github.com/HarmonyHoney/CandyWrapper/raw/refs/heads/master/linux/net.hhoney.candy.releases.xml" />
 
   <launchable type="desktop-id">net.hhoney.candy.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
