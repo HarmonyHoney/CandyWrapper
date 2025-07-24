@@ -1,4 +1,4 @@
-# ![icon](Image/icon/48.png) Candy Wrapper
+# ![icon](image/icon/48.png) Candy Wrapper
 
 Candy Wrapper is a Looping Platformer Arcade Game!
 
