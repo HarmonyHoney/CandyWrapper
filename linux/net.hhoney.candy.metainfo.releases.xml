@@ -1,4 +1,34 @@
 <releases>
+  <release version="2025.07.23" date="2025-07-23">
+    <description>
+      <ul>
+        <li>Outlines drawn around tiles</li>
+        <li>Fix possible sprite bleeding with character sprites.</li>
+        <li>Write version number on title screen.</li>
+      </ul>
+    </description>
+  </release>
+  <release version="2025.07.17" date="2025-07-17">
+    <description>
+      <p>Jumps now feel more responsive and forgiving at the edges of platforms.</p>
+    </description>
+  </release>
+  <release version="2025.07.15" date="2025-07-15">
+    <description>
+      <ul>
+        <li>Add outlines to Player, Candies and Falling Candies.</li>
+        <li>Fix Bug with Falling Candies, now the drop rate increases as intended.</li>
+        <li>Horizontally Flip Falling Candies at random.</li>
+        <li>Mild Randomization of Pitch on Sound Effects.</li>
+        <li>Game Pad Controller can now Toggle Fullscreen with Start / Select, can also press the joysticks in to Jump.</li>
+      </ul>
+    </description>
+  </release>
+  <release version="2025.05.12" date="2025-05-12">
+    <description>
+      <p>change credits and update to godot 4.4.1</p>
+    </description>
+  </release>
   <release version="2025.02.23" date="2025-02-23">
     <description>
       <p>Updated icons for Linux</p>
