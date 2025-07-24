@@ -1,4 +1,9 @@
 <releases>
+  <release version="2025.07.23+1" date="2025-07-23">
+    <description>
+      <p>Behind-the-scenes Linux housekeeping update</p>
+    </description>
+  </release>
   <release version="2025.07.23" date="2025-07-23">
     <description>
       <ul>
