@@ -10,6 +10,6 @@ Full Game at: [https://harmonymonroe.itch.io/candy](https://harmonymonroe.itch.i
 The Unlicense, see [LICENSE](LICENSE) for more information.
 
 ## Screenshots
-![shot1](Image/thumb/1.png)
-![shot2](Image/thumb/2.png)
-![shot3](Image/thumb/3.png)
+![shot1](media/image/screens/thumb/1.png)
+![shot2](media/image/screens/thumb/2.png)
+![shot3](media/image/screens/thumb/3.png)
