@@ -1,0 +1,27 @@
+<releases>
+  <release version="2025.02.23" date="2025-02-23">
+    <description>
+      <p>Updated icons for Linux</p>
+    </description>
+  </release>
+  <release version="4.3" date="2024-08-20">
+    <description>
+      <p>Candy Wrapper is now built using Godot Engine 4.3!</p>
+    </description>
+  </release>
+  <release version="4.2" date="2023-11-30">
+    <description>
+      <p>Candy Wrapper is now built using Godot Engine 4.2!</p>
+    </description>
+  </release>
+  <release version="4.0" date="2023-06-15">
+    <description>
+      <p>Candy Wrapper is now built using Godot Engine 4.0</p>
+    </description>
+  </release>
+  <release version="3.2.2" date="2020-08-30">
+    <description>
+      <p>Candy Wrapper is now built using Godot Engine 3.2.2</p>
+    </description>
+  </release>
+</releases>
