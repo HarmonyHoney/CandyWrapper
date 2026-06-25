@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.0
 
       - name: Cache Godot Engine downloads
         id: cache-godot
-        uses: actions/cache@v4
+        uses: actions/cache@v6.0.0
         with:
           path: |
             export/godot
@@ -55,7 +55,7 @@ jobs:
           ./godot --verbose --headless --path ../ --export-pack "Linux/X11" ./export/${EXPORT_NAME}.pck
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: ${{ env.EXPORT_NAME }}
           path: export/${{ env.EXPORT_NAME }}.pck
@@ -68,7 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download PCK file artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8.0.1
         with:
           name: ${{ env.EXPORT_NAME }}
 
